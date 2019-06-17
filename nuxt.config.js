@@ -56,7 +56,18 @@ module.exports = {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
-
+  generate: {
+    fallback:true,
+    routes: function () {
+      return app.$prismic.api.query('')
+      .then((res) => {
+        return res.results.map((result) => {
+          return '/' + result.type + '/' + result.uid
+        })
+      })
+    }
+    // See https://github.com/nuxt-community/axios-module#options
+  },
   /*
   ** Build configuration
   */
