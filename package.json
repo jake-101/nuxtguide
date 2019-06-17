@@ -1,0 +1,24 @@
+{
+  "name": "nuxtguide",
+  "version": "1.0.0",
+  "description": "A guide to nuxt.js",
+  "author": "jake101.com",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.0.0",
+    "cross-env": "^5.2.0",
+    "nuxt": "^2.0.0",
+    "prismic-nuxt": "^0.5.1"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^1.1.0",
+    "autoprefixer": "^8.6.4",
+    "nodemon": "^1.11.0"
+  }
+}
