@@ -1,3 +1,5 @@
+import Prismic from "prismic-javascript"
+
 const pkg = require('./package')
 
 module.exports = {
@@ -58,14 +60,7 @@ module.exports = {
   },
   generate: {
     fallback:true,
-    routes: function () {
-      return app.$prismic.api.query('')
-      .then((res) => {
-        return res.results.map((result) => {
-          return '/' + result.type + '/' + result.uid
-        })
-      })
-    }
+
     // See https://github.com/nuxt-community/axios-module#options
   },
   /*
