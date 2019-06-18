@@ -1,14 +1,14 @@
 <template class="flex justify-center">
-  <section class="flex flex-wrap justify-left">
-    <ArticleCard class="w-full md:w-1/2 pr-3 pb-3 flex flex-grow flex-1">
+  <section class="flex flex-wrap justify-left flex-col lg:flex-row">
+    <ArticleCard class="w-full lg:w-1/2 pr-3 pb-3 flex flex-col">
       <img
         v-if="image"
-        class="w-full h-auto object-cover border-b rounded overflow-hidden shadow-lg"
+        class="w-full h-auto border-b rounded shadow-lg"
         :src="image.url"
         :alt="image.alt"
       >
     </ArticleCard>
-    <ArticleCard class="w-full md:w-1/2 pr-3 pb-3 flex flex-col">
+    <ArticleCard class="w-full lg:w-1/2 pr-3 pb-3 flex flex-col">
       <div class="rounded overflow-hidden shadow-lg bg-white flex flex-col mb-4">
         
       </div>

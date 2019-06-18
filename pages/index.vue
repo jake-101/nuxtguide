@@ -1,6 +1,6 @@
 <template>
   <section class="flex flex-wrap justify-left">
-    <ArticleCard key="first" class="w-full md:w-1/2 lg:w-1/4 xl:max-w-xs pr-3 pb-3 flex flex-grow flex-1">
+    <ArticleCard key="first" class="w-full md:w-1/2 lg:w-1/4 xl:w-1/6 pr-3 pb-3 flex ">
       <div class="rounded overflow-hidden shadow-lg bg-gray-800 flex items-center flex-row flex-1">
         <div class="px-6 py-4 text-center">
           <h1 class="text-white text-4xl mb-3">Nuxt Guide</h1>
@@ -13,16 +13,17 @@
     <ArticleCard
       v-for="m in modules"
       :key="m.meta.id"
-      class="w-full md:w-1/2 lg:w-1/4 xl:max-w-xs pr-3 pb-3 flex"
+      class="w-full md:w-1/2 lg:w-1/4 xl:w-1/6 pr-3 pb-3 flex "
     >
       <div class="rounded overflow-hidden shadow-lg bg-white flex flex-col">
       <nuxt-link :to="`/${m.meta.type}/${m.meta.slug}`">
-        <img
+    <img
           v-if="m.image"
-          class="w-full h-48 object-cover border-b"
-          :src="m.image.url"
+          class="w-full border-b"
+          :src="m.image['720p'].url"
           :alt="m.image.alt"
-        ></nuxt-link>
+        >
+      </nuxt-link>
         <div class="px-6 pt-4 pb-6 border-b flex-grow">
      <nuxt-link tag="h2" class="font-bold text-xl mb-2" :to="`/${m.meta.type}/${m.meta.slug}`">{{m.title}}</nuxt-link>
           <p class="text-gray-700 text-sm">{{m.short_desc}}</p>

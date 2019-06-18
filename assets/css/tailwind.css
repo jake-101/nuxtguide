@@ -47,6 +47,26 @@
 @tailwind utilities;
 
 .w-max-content {width:max-content;overflow-x:auto;scrollbar-width: none;}
+.outer {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    overflow: hidden;  }
+    .outer:before {
+        padding-top: 56.25%;    display: block;
+        content: "";
+    }
+  .outer > .content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  
 /**
  * Here you would add any custom utilities you need that don't come out of the
  * box with Tailwind.
