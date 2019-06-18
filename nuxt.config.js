@@ -112,7 +112,8 @@ module.exports = {
       "bm-cross",
       "lazy",
       "img",
-      "lazyimg"
+      "lazyimg",
+      "svg-inline--fa"
     ]
 
     // your settings here
