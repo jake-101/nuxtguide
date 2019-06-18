@@ -15,7 +15,7 @@
     >
       <div class="rounded overflow-hidden shadow-lg bg-white flex flex-col">
         <nuxt-link :to="`/${m.meta.type}/${m.meta.slug}`">
-          <img v-if="m.image" class="w-full border-b" :src="m.image['720p'].url" :alt="m.image.alt">
+        <ImageSrcSet :imgobj="m.image" />
         </nuxt-link>
         <div class="px-6 pt-4 pb-6 border-b flex-grow">
           <nuxt-link
@@ -47,8 +47,9 @@
 
 <script>
 import ArticleCard from "~/components/ArticleCard";
+import ImageSrcSet from "~/components/ImageSrcSet";
 export default {
-  components: { ArticleCard },
+  components: { ArticleCard,ImageSrcSet },
   props: ["pagename", "pagedesc", "griditems"]
 };
 </script>

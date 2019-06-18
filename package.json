@@ -13,7 +13,7 @@
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
     "@nuxtjs/axios": "^5.0.0",
-    "core-js":  "^2.6.5",
+    "core-js": "^2.6.5",
     "cross-env": "^5.2.0",
     "firebase": "^6.2.0",
     "nuxt": "^2.0.0",
@@ -22,6 +22,7 @@
     "nuxt-webfontloader": "^1.1.0",
     "prismic-nuxt": "^0.5.1",
     "vue-burger-menu": "^2.0.1",
+    "vue-lazyload": "^1.2.6",
     "vue-timeago": "^5.1.2",
     "vue-unorphan": "^1.2.3"
   },

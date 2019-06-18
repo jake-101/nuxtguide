@@ -1,12 +1,8 @@
 <template class="flex justify-center">
   <section class="flex flex-wrap justify-left flex-col lg:flex-row md:ml-3">
     <ArticleCard class="w-full lg:w-1/2 lg:pr-3 pb-3 flex flex-col">
-      <img
-        v-if="image"
-        class="w-full h-auto border-b rounded shadow-lg"
-        :src="image.url"
-        :alt="image.alt"
-      >
+    <ImageSrcSet  class="w-full h-auto border-b rounded shadow-lg" :imgobj="image" />
+
     </ArticleCard>
     <ArticleCard class="w-full lg:w-1/2 lg:pr-3 pb-1 flex flex-col">
       <div
@@ -61,8 +57,10 @@
 <script>
 import ArticleCard from "~/components/ArticleCard";
 import RelatedItems from "~/components/RelatedItems";
+import ImageSrcSet from "~/components/ImageSrcSet";
+
 export default {
-  components: { ArticleCard, RelatedItems },
+  components: { ArticleCard, RelatedItems,ImageSrcSet },
   async asyncData({ app, error, params }) {
     let document = await app.$prismic.api.getByUID(params.type, params.slug);
     let related = await app.$prismic.api.query(

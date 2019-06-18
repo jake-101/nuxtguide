@@ -38,7 +38,7 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ['~/plugins/filters','~/plugins/timeago',{src:'~/plugins/menu',mode:'client'}
+  plugins: ['~/plugins/filters','~/plugins/timeago',{src:'~/plugins/menu',mode:'client'},{src:'~/plugins/lazy',mode:'client'}
   ],
 
   /*
@@ -95,7 +95,7 @@ module.exports = {
     ]
   ],
   purgeCSS: {
-    whitelist: ['sidemenu','bm-burger-button','bm-menu','bm-burger-bars','bm-cross'],
+    whitelist: ['sidemenu','bm-burger-button','bm-menu','bm-burger-bars','bm-cross','lazy','img'],
   
     // your settings here
    },
