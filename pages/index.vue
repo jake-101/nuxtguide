@@ -13,7 +13,8 @@ export default {
   },
   components: {ArticleGrid},
   async asyncData({ app, error }) {
-    let document = await app.$prismic.api.query(''
+    let document = await app.$prismic.api.query('',{ orderings : '[document.last_publication_date desc]' }
+
     );
 
     return {

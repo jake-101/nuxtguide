@@ -50,16 +50,52 @@ module.exports = {
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
+    ['nuxt-fontawesome', {
+      component: 'fa', 
+      imports: [
+
+        {
+          set: '@fortawesome/free-solid-svg-icons',
+          icons: ['faGlobe', 'faHome','faSearch']
+        }
+      ],}],
     'nuxt-webfontloader',
     ['prismic-nuxt', {
       endpoint: 'https://jake101.cdn.prismic.io/api/v2',
       linkResolver: function(doc, ctx) {
         return '/'
       }
-    }]
+    }],
+    [
+      'nuxt-fire',
+      {
+        useOnly: ['auth'],
+        customEnv: false,
+        config: {
+          development: {
+            apiKey: "AIzaSyDDsijKfPhn2xNjPapedWxgP4lkW_ltmdI",
+            authDomain: "nuxtguide.firebaseapp.com",
+            databaseURL: "https://nuxtguide.firebaseio.com",
+            projectId: "nuxtguide",
+            storageBucket: "nuxtguide.appspot.com",
+            messagingSenderId: "486719329273",
+            appId: "1:486719329273:web:18f14c6e6ddc3317"
+          },
+          production: {
+            apiKey: "AIzaSyDDsijKfPhn2xNjPapedWxgP4lkW_ltmdI",
+            authDomain: "nuxtguide.firebaseapp.com",
+            databaseURL: "https://nuxtguide.firebaseio.com",
+            projectId: "nuxtguide",
+            storageBucket: "nuxtguide.appspot.com",
+            messagingSenderId: "486719329273",
+            appId: "1:486719329273:web:18f14c6e6ddc3317"
+          }
+        }
+      }
+    ]
   ],
   purgeCSS: {
-    whitelist: ['sidemenu','bm-burger-button','bm-menu'],
+    whitelist: ['sidemenu','bm-burger-button','bm-menu','bm-burger-bars','bm-cross'],
   
     // your settings here
    },

@@ -14,7 +14,7 @@ export default {
   },
   components: {ArticleGrid},
     async asyncData({ app, error, params }) {
-    let document = await app.$prismic.api.query(app.$prismic.predicates.at('document.type',params.type));
+    let document = await app.$prismic.api.query(app.$prismic.predicates.at('document.type',params.type),{ orderings : '[document.last_publication_date desc]' });
 
     return {
       modules: document.results.map(result => {
