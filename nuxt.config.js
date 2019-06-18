@@ -34,11 +34,7 @@ module.exports = {
   ** Global CSS
   */
 
- purgeCSS: {
-  whitelist: ['body', 'html', 'nuxt-progress','sidemenu'],
 
-  // your settings here
- },
   /*
   ** Plugins to load before mounting the App
   */
@@ -62,6 +58,11 @@ module.exports = {
       }
     }]
   ],
+  purgeCSS: {
+    whitelist: ['sidemenu','bm-burger-button','bm-menu'],
+  
+    // your settings here
+   },
   /*
   ** Axios module configuration
   */
