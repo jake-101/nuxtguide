@@ -6,6 +6,15 @@
 <script>
 import ArticleGrid from '~/components/ArticleGrid'
 export default {
+    head () {
+    return {
+      title: this.$route.params.type + ' | Nuxt Guide',
+      meta: [
+        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        { hid: 'description', name: 'description', content: 'A collection of modules, plugins, boilerplates, tutorials, and inspiration for Nuxt.js / Vue.js' }
+      ]
+    }
+  },
     data: function () {
     return {
      pagename: "",

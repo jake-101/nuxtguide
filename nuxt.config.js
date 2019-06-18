@@ -33,6 +33,11 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
+  lozad: {
+    
+      threshold: 0.7 // ratio of element convergence
+  
+  },
   plugins: [
     "~/plugins/filters",
     "~/plugins/timeago",
@@ -45,6 +50,7 @@ module.exports = {
    */
   devModules: ["@nuxtjs/tailwindcss", "vue-unorphan/nuxt/module"],
   modules: [
+    '@ax2/lozad-module',
     // Doc: https://github.com/nuxt-community/axios-module#usage
     "@nuxtjs/axios",
     [
@@ -59,7 +65,8 @@ module.exports = {
               "faSearch",
               "faHeart",
               "faEye",
-              "faClock"
+              "faClock",
+              "faLaptopCode"
             ]
           }
         ]

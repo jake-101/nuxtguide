@@ -1,7 +1,7 @@
 <template class="flex justify-center" :data-wio-id="meta.id">
   <section class="flex flex-wrap justify-left flex-col lg:flex-row md:ml-3" >
     <ArticleCard class="w-full lg:w-1/2 lg:pr-3 pb-3 flex flex-col">
-      <ImageSrcSet class="w-full h-auto border-b rounded shadow-lg" sizes="(min-width: 1024px) 50vw, 100vw" :imgobj="image"/>
+      <ImageSrcSet class="w-full h-auto  rounded shadow-lg" sizes="(min-width: 1024px) 500px, 650px" :imgobj="image"/>
           <ul class="text-xs flex  text-gray-700  flex-initial" v-if="likes || views">
      <li class="py-2 my-3 mr-2 px-3 bg-gray-300 rounded" v-if="views"><font-awesome-icon :icon="['fas', 'eye']"/> {{views}}</li>      <li class="py-2 my-3 mr-2 px-3 bg-gray-300 rounded" v-if="likes >= 0"><font-awesome-icon :icon="['fas', 'heart']"/> {{likes}}</li>
 
@@ -11,7 +11,7 @@
       <div
         class="rounded overflow-hidden shadow-lg bg-white flex flex-col border-t-8 border-brown-800"
       >
-        <div class="px-6 pt-4 pb-4 flex-grow border-b">
+        <div class="px-6 pt-4 pb-4 flex-grow border-b-2 border-brown-300">
           <h2 class="font-bold text-4xl mb-3 inline-block mt-4">{{title}}</h2>
           <p class="text-brown-700 text-lg mb-2">
             <nuxt-link
@@ -23,7 +23,7 @@
           </p>
         </div>
         <div
-          class="px-6 pt-8 pb-8 border-b flex-grow leading-loose description text-brown-800"
+          class="px-6 pt-8 pb-8 border-b border-brown-400 flex-grow leading-loose description text-brown-800"
           v-html="description"
         ></div>
         <div class="w-100 overflow-x-auto bg-brown-300">
@@ -31,12 +31,12 @@
             <a v-if="link" :href="link">
               <button
                 class="bg-brown-800 hover:bg-brown-900 text-white font-bold py-2 px-4 rounded"
-              >{{title}} Homepage</button>
+              ><font-awesome-icon  :icon="['fas', 'home']"/>  Homepage</button>
             </a>
             <a v-if="demolink" :href="demolink">
               <button
                 class="bg-brown-800 hover:bg-brown-900 text-white font-bold py-2 px-4 rounded"
-              >Demo</button>
+              ><font-awesome-icon  :icon="['fas', 'laptop-code']"/> Demo</button>
             </a>
             <a v-if="authorlink" :href="authorlink">
               <button
@@ -57,7 +57,7 @@
           <timeago :datetime="date"></timeago>
         </span>
       </div>
-      <RelatedItems class="pl-2 pr-2" :items="related"/>
+      <RelatedItems  v-if="related.length" class="pl-2 pr-2" :items="related"/>
     </ArticleCard>
   </section>
 </template>
@@ -68,6 +68,15 @@ import RelatedItems from "~/components/RelatedItems";
 import ImageSrcSet from "~/components/ImageSrcSet";
 
 export default {
+    head () {
+    return {
+      title: this.title + ' | Nuxt Guide',
+      meta: [
+        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        { hid: 'description', name: 'description', content: this.short_desc }
+      ]
+    }
+  },
     data: function () {
     return {
      views: null,

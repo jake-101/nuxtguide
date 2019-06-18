@@ -16,7 +16,7 @@
           <nuxt-link class="text-gray-200 hover:text-white text-sm font-light uppercase tracking-widest" to="/">Nuxt Guide</nuxt-link>
         </li>
         <li>
-          <span class="cursor-pointer border-gray-700 border text-gray-600 text-xs px-3 py-1 rounded hover:bg-gray-800 hover:text-gray-300" @click="signInGoogle" to="/">Sign in with Google</span>
+<SignIn/>
         </li>
       </ul>
       <div class="p-4 md:p-8 lg:p-12">
@@ -37,7 +37,9 @@
   </div>
 </template>
 <script>
+import SignIn from '~/components/SignIn'
 export default {
+  components: {SignIn},
   data: function() {
     return {
 user: {},
@@ -45,23 +47,7 @@ error: {code: null,message: null, email: null, credential: null}
     };
   },
   methods: {
-    signInGoogle() {
-      var _this = this
-      var provider = new this.$fireAuthObj.GoogleAuthProvider();
 
-this.$fireAuth.signInWithPopup(provider).then(function(result) {
-_this.user = result.user
-}).catch(function(error) {
-  console.log(error)
-  // Handle Errors here.
-  _this.error.code = error.code;
-  _this.error.message= error.message;
-  // The email of the user's account used.
-  _this.error.email = error.email;
-  // The firebase.auth.AuthCredential type that was used.
-  _this.error.credential = error.credential;
-});
-    }
   }
 };
 </script>

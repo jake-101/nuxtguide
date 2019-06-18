@@ -7,12 +7,7 @@
     <ArticleCard v-for="m in items" :key="`${m.uid}-related`" class="w-full">
       <div class="rounded overflow-hidden shadow-lg bg-white w-full">
         <nuxt-link :to="`/${m.type}/${m.uid}`">
-          <img
-            v-if="m.data.post_image"
-            class="border-b w-full h-auto"
-            :src="m.data.post_image['720p'].url"
-            :alt="m.data.post_image.alt"
-          >
+              <ImageSrcSet class="w-full h-auto border-b rounded rounded-b-none shadow-lg" sizes="(min-width: 1024px) 500px, 650px" :imgobj="m.data.post_image"/>
         </nuxt-link>
         <div class="px-3 pt-3 pb-1 truncate overflow-hidden w-full">
           <nuxt-link
@@ -25,20 +20,23 @@
       </div>
     </ArticleCard>
     </div>
+
   </section>
 </template>
 
 <script>
 import ArticleCard from "~/components/ArticleCard";
+import ImageSrcSet from "~/components/ImageSrcSet";
+
 export default {
-  components: { ArticleCard },
+  components: { ArticleCard,ImageSrcSet },
   props: ["items"]
 };
 </script>
 <style>
 .grid-4 {
   display: grid;
-  grid-template-columns: repeat(4,minmax(250px, 25%));
+  grid-template-columns: repeat(12,minmax(250px, 25%));
   grid-gap: 10px;
   grid-auto-flow: row dense;
 }

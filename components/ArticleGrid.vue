@@ -13,15 +13,15 @@
       :key="m.meta.id"
       class="w-full md:w-1/2 lg:w-1/3 xl:max-w-xs md:pr-3 pb-3 flex"
     >
-      <div class="rounded overflow-hidden shadow-lg bg-white flex flex-col">
-        <nuxt-link :to="`/${m.meta.type}/${m.meta.slug}`">
-        <ImageSrcSet sizes="(min-width: 768px) 400px, 100vw" :imgobj="m.image" />
+      <div class="rounded overflow-hidden shadow-lg bg-white flex w-full flex-col">
+        <nuxt-link :to="`/${m.meta.type}/${m.meta.uid}`">
+        <ImageSrcSet sizes="(min-width: 768px) 400px, 600px" :imgobj="m.image" />
         </nuxt-link>
-        <div class="px-6 pt-4 pb-6 border-b flex-grow">
+        <div class="px-6 pt-4 pb-6 border-b border-brown-500 shadow-inner flex-grow">
           <nuxt-link
             tag="h2"
             class="cursor-pointer font-bold text-xl mb-2 no-underline hover:underline"
-            :to="`/${m.meta.type}/${m.meta.slug}`"
+            :to="`/${m.meta.type}/${m.meta.uid}`"
           >{{m.title}}</nuxt-link>
           <p class="text-brown-800 text-sm" v-unorphan>{{m.short_desc}}</p>
         <font-awesome-icon class="text-orange-500 text-xs" :icon="['fas', 'clock']"/>  <timeago class="text-xs text-orange-500" :datetime="m.date"></timeago>

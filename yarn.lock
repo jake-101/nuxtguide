@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@ax2/lozad-module@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@ax2/lozad-module/-/lozad-module-0.1.2.tgz#d8bbc3ec17acf3e6569af27cae533ce60d403267"
+  integrity sha512-UOR1S8Ftl/SHy4HdvGMaNLPNN9nvQdceVtbrr5hBojoy9/qegf1ixEn5264C5xR57BZgTivB1gVrP3gYGVL3KQ==
+  dependencies:
+    intersection-observer "^0.5.0"
+    lozad "^1.6.0"
+
 "@babel/code-frame@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0.tgz#06e2ab19bdb535385559aabb5ba59729482800f8"
@@ -4083,6 +4091,11 @@ ini@^1.3.4, ini@~1.3.0:
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
   integrity sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==
 
+intersection-observer@^0.5.0:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/intersection-observer/-/intersection-observer-0.5.1.tgz#e340fc56ce74290fe2b2394d1ce88c4353ac6dfa"
+  integrity sha512-Zd7Plneq82kiXFixs7bX62YnuZ0BMRci9br7io88LwDyF3V43cQMI+G5IiTlTNTt+LsDUppl19J/M2Fp9UkH6g==
+
 invariant@^2.2.2:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
@@ -4672,6 +4685,11 @@ lowercase-keys@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/lowercase-keys/-/lowercase-keys-1.0.1.tgz#6f9e30b47084d971a7c820ff15a6c5167b74c26f"
   integrity sha512-G2Lj61tXDnVFFOi8VZds+SoQjtQC3dgokKdDG2mTm1tx4m50NUHBOZSBwQQHyy0V12A0JTG4icfZQH+xPyh8VA==
+
+lozad@^1.6.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/lozad/-/lozad-1.9.0.tgz#75e71ea9e379c744c2ad7ecc37a5858a25674595"
+  integrity sha512-JHLl59h3ESVfZEDyCeSlB3afZAIUZ6oA98hU3F6GZPRrPFWSuf6Z6zjMko+NEWpWfI7gGOMhE0d3txloLL2QiQ==
 
 lru-cache@^4.0.1, lru-cache@^4.1.2:
   version "4.1.5"
