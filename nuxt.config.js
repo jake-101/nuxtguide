@@ -51,12 +51,11 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
     ['nuxt-fontawesome', {
-      component: 'fa', 
       imports: [
 
         {
           set: '@fortawesome/free-solid-svg-icons',
-          icons: ['faGlobe', 'faHome','faSearch']
+          icons: ['faGlobe', 'faHome','faSearch','faHeart','faEye']
         }
       ],}],
     'nuxt-webfontloader',
@@ -69,7 +68,7 @@ module.exports = {
     [
       'nuxt-fire',
       {
-        useOnly: ['auth'],
+        useOnly: ['auth','firestore'],
         customEnv: false,
         config: {
           development: {

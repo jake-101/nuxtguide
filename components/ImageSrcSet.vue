@@ -19,7 +19,6 @@ arr.push(` ${imgobj['720p'].url} 720w`)
 arr.push(` ${imgobj.url} ${imgobj.dimensions.width}w`)
         }  
         let x = arr.toString();
-        console.log(arr, x)
 return x
 
       }
