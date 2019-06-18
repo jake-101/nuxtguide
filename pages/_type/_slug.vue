@@ -8,48 +8,53 @@
         :alt="image.alt"
       >
     </ArticleCard>
-    <ArticleCard class="w-full lg:w-1/2 lg:pr-3 pb-3 flex flex-col">
-   
-      <div class="rounded overflow-hidden shadow-lg bg-white flex flex-col">
+    <ArticleCard class="w-full lg:w-1/2 lg:pr-3 pb-1 flex flex-col">
+      <div
+        class="rounded overflow-hidden shadow-lg bg-white flex flex-col border-t-8 border-brown-800"
+      >
         <div class="px-6 pt-4 pb-4 flex-grow border-b">
-            <h2 class="font-bold text-4xl mb-0 inline-block mt-4">{{title}}</h2>
-      <p class=" text-gray-700 text-lg mb-4">
-     <nuxt-link
+          <h2 class="font-bold text-4xl mb-3 inline-block mt-4">{{title}}</h2>
+          <p class="text-brown-700 text-lg mb-2" >
+            <nuxt-link
               tag="span"
               :to="`/${meta.type}/`"
-              class="cursor-pointer inline-block bg-blue-400 rounded-full px-3 py-1 text-xs font-semibold text-blue-100 shadow-inner mr-1 mb-2"
-            >{{result.type | capitalize}}</nuxt-link> 
-            {{short_desc}}
-          </p>            
+              class="cursor-pointer inline-block bg-brown-800 hover:bg-brown-900 rounded px-3 py-1 text-xs font-semibold text-brown-100 shadow-inner mr-1 mb-2"
+            >{{result.type | capitalize}}</nuxt-link>
+           <span v-unorphan>{{short_desc}}</span> 
+          </p>
         </div>
-        <div class="px-6 pt-8 pb-8 border-b flex-grow leading-loose" v-html="description">
-        </div>
-        <div class="w-100 overflow-x-auto">
-          <div class="pl-4 pt-4 pb-2">
-            <a v-if="link" :href="link"><button
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >{{title}} Homepage</button></a>
-             <a v-if="demolink" :href="demolink"><button
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >Demo</button></a>
-              <a v-if="authorlink" :href="authorlink"><button
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >Author</button></a>
-     
+        <div class="px-6 pt-8 pb-8 border-b flex-grow leading-loose description text-brown-800" v-html="description"></div>
+        <div class="w-100 overflow-x-auto bg-brown-300">
+          <div class="pl-4 pt-4 pb-4">
+            <a v-if="link" :href="link">
+              <button
+                class="bg-brown-800 hover:bg-brown-900 text-white font-bold py-2 px-4 rounded"
+              >{{title}} Homepage</button>
+            </a>
+            <a v-if="demolink" :href="demolink">
+              <button
+                class="bg-brown-800 hover:bg-brown-900 text-white font-bold py-2 px-4 rounded"
+              >Demo</button>
+            </a>
+            <a v-if="authorlink" :href="authorlink">
+              <button
+                class="bg-brown-800 hover:bg-brown-900 text-white font-bold py-2 px-4 rounded"
+              >Author</button>
+            </a>
           </div>
         </div>
       </div>
-      <div class="my-6 mx-4">       <span
-              class="inline-block  pr-3 py-1 text-xs text-gray-700 mr-1 mb-2"
-     
-            >Tagged:</span> <span
-              class="inline-block bg-gray-200 rounded-full shadow-inner px-3 py-1 text-xs text-gray-700 mr-1 mb-2"
-              v-for="tag in meta.tags"
-              :key="tag"
-            >{{tag}}</span></div>
-      
+      <div class="mt-8 mx-2">
+    
+        <span
+          class="inline-block bg-white rounded shadow px-3 py-1 text-xs text-gray-700 mr-1 mb-6"
+          v-for="tag in meta.tags"
+          :key="tag"
+        >{{tag}}</span>    <span class="inline-block pr-3 py-1 text-xs text-xs text-gray-700 mr-1 mb-2"> Last updated <timeago  :datetime="date"></timeago></span>
+      </div>
+          <RelatedItems class="pl-2 pr-2" :items="related"/>
     </ArticleCard>
-    <RelatedItems :items="related"/>
+
   </section>
 </template>
 
@@ -57,34 +62,39 @@
 import ArticleCard from "~/components/ArticleCard";
 import RelatedItems from "~/components/RelatedItems";
 export default {
-  components: {ArticleCard,RelatedItems},
-  async asyncData({ app, error,params }) {
+  components: { ArticleCard, RelatedItems },
+  async asyncData({ app, error, params }) {
     let document = await app.$prismic.api.getByUID(params.type, params.slug);
-    let related = await app.$prismic.api.query(app.$prismic.predicates.similar(document.id,8));
+    let related = await app.$prismic.api.query(
+      app.$prismic.predicates.similar(document.id, 8)
+    );
 
+    return {
+      meta: {
+        id: document.id,
+        uid: document.uid,
+        lang: document.lang,
+        publicationDate: app.$prismic.asDate(document.first_publication_date),
+        tags: document.tags,
+        type: document.type,
+        slug: document.slugs[0]
+      },
 
-        return {
-          meta: {
-            id: document.id,
-            uid: document.uid,
-            lang: document.lang,
-            publicationDate: app.$prismic.asDate(document.first_publication_date),
-            tags: document.tags,
-            type: document.type,
-            slug: document.slugs[0]
-          },
-
-          title: app.$prismic.asText(document.data.title),
-           description: app.$prismic.asHtml(document.data.content),
-                      link: app.$prismic.asLink(document.data.link),
-    demolink: app.$prismic.asLink(document.data.demo_link),
-        authorlink: app.$prismic.asLink(document.data.author_link),
-          short_desc: document.data.short_description,
-          image: document.data.post_image,
-          result: document,
-                    related: related.results
-        };
-    
+      title: app.$prismic.asText(document.data.title),
+      description: app.$prismic.asHtml(document.data.content),
+      link: app.$prismic.asLink(document.data.link),
+      demolink: app.$prismic.asLink(document.data.demo_link),
+      authorlink: app.$prismic.asLink(document.data.author_link),
+      short_desc: document.data.short_description,
+      image: document.data.post_image,
+      result: document,
+      date: document.last_publication_date,
+      related: related.results
+    };
   }
 };
 </script>
+<style>
+.description a {text-decoration: none;font-weight:600;color:#211B18;}
+.description a:hover {text-decoration: underline;}
+</style>

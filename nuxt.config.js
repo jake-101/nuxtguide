@@ -1,4 +1,3 @@
-import Prismic from "prismic-javascript"
 
 const pkg = require('./package')
 
@@ -19,7 +18,13 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  webfontloader: {
 
+    custom: {
+      families: ['Inter'],
+      urls: ['/fonts/inter.css']
+    }
+  },
   /*
   ** Customize the progress-bar color
   */
@@ -33,18 +38,19 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ['~/plugins/filters'
+  plugins: ['~/plugins/filters','~/plugins/timeago',{src:'~/plugins/menu',mode:'client'}
   ],
 
   /*
   ** Nuxt.js modules
   */
  devModules: [
-  '@nuxtjs/tailwindcss'
+  '@nuxtjs/tailwindcss','vue-unorphan/nuxt/module'
 ],
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
+    'nuxt-webfontloader',
     ['prismic-nuxt', {
       endpoint: 'https://jake101.cdn.prismic.io/api/v2',
       linkResolver: function(doc, ctx) {

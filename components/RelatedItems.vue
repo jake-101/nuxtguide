@@ -1,15 +1,15 @@
 <template>
-  <section class="">
-    <div class="w-full py-6">
+  <section class=" w-full">
+    <div class="w-full py-3 my-3 px-3 bg-gray-300 text-gray-800 rounded">
       <h2>Related</h2>
     </div>
-    <div class="flex flex-row flex-initial flex-wrap">
-    <ArticleCard v-for="m in items" :key="`${m.uid}-related`" class="w-1/4 pr-2 pb-2  inline-block">
-      <div class="rounded overflow-hidden shadow-lg bg-white w-1/4">
+    <div class="grid-4 overflow-x-auto">
+    <ArticleCard v-for="m in items" :key="`${m.uid}-related`" class="w-full">
+      <div class="rounded overflow-hidden shadow-lg bg-white w-full">
         <nuxt-link :to="`/${m.type}/${m.uid}`">
           <img
             v-if="m.data.post_image"
-            class="border-b w-32 h-auto"
+            class="border-b w-full h-auto"
             :src="m.data.post_image['720p'].url"
             :alt="m.data.post_image.alt"
           >
@@ -17,7 +17,7 @@
         <div class="px-3 pt-3 pb-1 truncate overflow-hidden w-full">
           <nuxt-link
             tag="h2"
-            class=" cursor-pointer font-semibold text-sm mb-2"
+            class=" cursor-pointer font-semibold text-sm mb-2 no-underline hover:underline"
             :to="`/${m.type}/${m.uid}`"
           >{{$prismic.asText(m.data.title)}}</nuxt-link>
         </div>
@@ -35,3 +35,11 @@ export default {
   props: ["items"]
 };
 </script>
+<style>
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(250px, 25%));
+  grid-gap: 10px;
+  grid-auto-flow: row dense;
+}
+</style>

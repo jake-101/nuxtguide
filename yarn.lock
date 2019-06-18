@@ -2546,6 +2546,11 @@ cyclist@~0.2.2:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-0.2.2.tgz#1b33792e11e914a2fd6d6ed6447464444e5fa640"
   integrity sha1-GzN5LhHpFKL9bW7WRHRkRE5fpkA=
 
+date-fns@^1.29.0:
+  version "1.30.1"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
+  integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
+
 date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
@@ -4798,6 +4803,13 @@ nuxt-purgecss@^0.2.1:
     glob-all "^3.1.0"
     purgecss "^1.1.0"
     purgecss-webpack-plugin "^1.4.0"
+
+nuxt-webfontloader@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/nuxt-webfontloader/-/nuxt-webfontloader-1.1.0.tgz#68b47ffbeaee4c41969f42f57a86946e0c36715c"
+  integrity sha512-GyDgABmI0Oq54s2tA9SZC28TmHy2xGdWSXrfcGPPfDBVhgQQlGL5CJcAlvovcuhefzzZrzGgs35HIcv5qym4fQ==
+  dependencies:
+    webfontloader "^1.6.28"
 
 nuxt@^2.0.0:
   version "2.8.1"
@@ -7103,6 +7115,11 @@ universalify@^0.1.0:
   resolved "https://registry.yarnpkg.com/universalify/-/universalify-0.1.2.tgz#b646f69be3942dabcecc9d6639c80dc105efaa66"
   integrity sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==
 
+unorphan@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/unorphan/-/unorphan-1.2.1.tgz#9c3317c1506c62c63466b8f4d6380023328da4ac"
+  integrity sha1-nDMXwVBsYsY0Zrj01jgAIzKNpKw=
+
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
@@ -7250,6 +7267,13 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.0.tgz#bd76d6a23323e2ca8ffa12028dc04559c75f9019"
   integrity sha512-iq+S7vZJE60yejDYM0ek6zg308+UZsdtPExWP9VZoCFCz1zkJoXFnAX7aZfd/ZwrkidzdUZL0C/ryW+JwAiIGw==
 
+vue-burger-menu@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/vue-burger-menu/-/vue-burger-menu-2.0.1.tgz#1060e4b00cdbdc806622607b956afd4ae2f8bf4e"
+  integrity sha512-uFFhneAU+BFCR79Dy+dUBV64Nr9YtVTtIvSdQeR8EEk35SonHJdFQj3HN++A1B0P2mzsQyXuHlV79QA6iiszTw==
+  dependencies:
+    vue "^2.5.17"
+
 vue-hot-reload-api@^2.3.0:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.3.tgz#2756f46cb3258054c5f4723de8ae7e87302a1ccf"
@@ -7321,7 +7345,21 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue@^2.6.10:
+vue-timeago@^5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/vue-timeago/-/vue-timeago-5.1.2.tgz#1fa625077a271cb1b7dddbbfb79e7647d2ea44c4"
+  integrity sha512-K74EdER1WO1XX+EIsf5ZeHucZjconfncOTlKxntC7s7q0QAAgiZt5BYenJ/GPHEEcxfmrGsiFWJPYmLHyNzDRg==
+  dependencies:
+    date-fns "^1.29.0"
+
+vue-unorphan@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/vue-unorphan/-/vue-unorphan-1.2.3.tgz#0baea59ed479a3151719747a175c8afd8e294173"
+  integrity sha512-/9mtl/R6Ql1VjKV8ydDxOaXziuNbDa5+i5HoBe3XaAT6J2biaB7o+bukNRQBHIBK5uNsfOJUQAMYshtYQd97JA==
+  dependencies:
+    unorphan "^1.2.1"
+
+vue@^2.5.17, vue@^2.6.10:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
   integrity sha512-ImThpeNU9HbdZL3utgMCq0oiMzAkt1mcgy3/E6zWC/G6AaQoeuFdsl9nDhTDU3X1R6FK7nsIUuRACVcjI+A2GQ==
@@ -7339,6 +7377,11 @@ watchpack@^1.5.0:
     chokidar "^2.0.2"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
+
+webfontloader@^1.6.28:
+  version "1.6.28"
+  resolved "https://registry.yarnpkg.com/webfontloader/-/webfontloader-1.6.28.tgz#db786129253cb6e8eae54c2fb05f870af6675bae"
+  integrity sha1-23hhKSU8tujq5UwvsF+HCvZnW64=
 
 webpack-bundle-analyzer@^3.3.2:
   version "3.3.2"

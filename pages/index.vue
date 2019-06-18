@@ -31,7 +31,8 @@ export default {
           title: app.$prismic.asText(result.data.title),
           short_desc: result.data.short_description,
           image: result.data.post_image,
-          result: result
+          result: result,
+          date: result.last_publication_date
         };
       }),
 

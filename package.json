@@ -14,7 +14,11 @@
     "@nuxtjs/axios": "^5.0.0",
     "cross-env": "^5.2.0",
     "nuxt": "^2.0.0",
-    "prismic-nuxt": "^0.5.1"
+    "nuxt-webfontloader": "^1.1.0",
+    "prismic-nuxt": "^0.5.1",
+    "vue-burger-menu": "^2.0.1",
+    "vue-timeago": "^5.1.2",
+    "vue-unorphan": "^1.2.3"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^1.1.0",
