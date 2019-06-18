@@ -18,12 +18,11 @@
               tag="span"
               :to="`/${meta.type}/`"
               class="cursor-pointer inline-block bg-blue-400 rounded-full px-3 py-1 text-xs font-semibold text-blue-100 shadow-inner mr-1 mb-2"
-            >{{result.type}}</nuxt-link> 
+            >{{result.type | capitalize}}</nuxt-link> 
             {{short_desc}}
           </p>            
         </div>
-        <div class="px-6 pt-8 pb-8 border-b flex-grow leading-loose">
-          <p v-html="description"></p>
+        <div class="px-6 pt-8 pb-8 border-b flex-grow leading-loose" v-html="description">
         </div>
         <div class="w-100 overflow-x-auto">
           <div class="pl-4 pt-4 pb-2">
@@ -50,15 +49,18 @@
             >{{tag}}</span></div>
       
     </ArticleCard>
+    <RelatedItems :items="related"/>
   </section>
 </template>
 
 <script>
 import ArticleCard from "~/components/ArticleCard";
+import RelatedItems from "~/components/RelatedItems";
 export default {
-  components: {ArticleCard},
+  components: {ArticleCard,RelatedItems},
   async asyncData({ app, error,params }) {
     let document = await app.$prismic.api.getByUID(params.type, params.slug);
+    let related = await app.$prismic.api.query(app.$prismic.predicates.similar(document.id,8));
 
 
         return {
@@ -71,6 +73,7 @@ export default {
             type: document.type,
             slug: document.slugs[0]
           },
+
           title: app.$prismic.asText(document.data.title),
            description: app.$prismic.asHtml(document.data.content),
                       link: app.$prismic.asLink(document.data.link),
@@ -78,7 +81,8 @@ export default {
         authorlink: app.$prismic.asLink(document.data.author_link),
           short_desc: document.data.short_description,
           image: document.data.post_image,
-          result: document
+          result: document,
+                    related: related.results
         };
     
   }
