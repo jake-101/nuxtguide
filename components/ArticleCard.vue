@@ -1,5 +1,5 @@
 <template>
-<article class="w-full  pr-3 pb-3 flex">
+<article class="w-full   pb-3 flex">
     <slot/>
 </article>
 </template>

@@ -1,6 +1,6 @@
 <template class="flex justify-center">
-  <section class="flex flex-wrap justify-left flex-col lg:flex-row">
-    <ArticleCard class="w-full lg:w-1/2 pr-3 pb-3 flex flex-col">
+  <section class="flex flex-wrap justify-left flex-col lg:flex-row md:ml-3">
+    <ArticleCard class="w-full lg:w-1/2 lg:pr-3 pb-3 flex flex-col">
       <img
         v-if="image"
         class="w-full h-auto border-b rounded shadow-lg"
@@ -8,21 +8,19 @@
         :alt="image.alt"
       >
     </ArticleCard>
-    <ArticleCard class="w-full lg:w-1/2 pr-3 pb-3 flex flex-col">
-      <div class="rounded overflow-hidden shadow-lg bg-white flex flex-col mb-4">
-        
-      </div>
+    <ArticleCard class="w-full lg:w-1/2 lg:pr-3 pb-3 flex flex-col">
+   
       <div class="rounded overflow-hidden shadow-lg bg-white flex flex-col">
         <div class="px-6 pt-4 pb-4 flex-grow border-b">
             <h2 class="font-bold text-4xl mb-0 inline-block mt-4">{{title}}</h2>
-                 <nuxt-link
+      <p class=" text-gray-700 text-lg mb-4">
+     <nuxt-link
               tag="span"
               :to="`/${meta.type}/`"
-              class="inline-block bg-blue-400 rounded-full px-3 py-1 text-xs font-semibold text-blue-100 shadow-inner mr-1 mb-2"
-            >{{result.type}}</nuxt-link> <p class="inline-block text-gray-700 text-lg mb-4">
-    
+              class="cursor-pointer inline-block bg-blue-400 rounded-full px-3 py-1 text-xs font-semibold text-blue-100 shadow-inner mr-1 mb-2"
+            >{{result.type}}</nuxt-link> 
             {{short_desc}}
-          </p>
+          </p>            
         </div>
         <div class="px-6 pt-8 pb-8 border-b flex-grow leading-loose">
           <p v-html="description"></p>
