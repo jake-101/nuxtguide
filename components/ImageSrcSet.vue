@@ -1,11 +1,11 @@
-<template>
-              <img class="w-full" v-if="imgobj" v-lazy="imgobj['720p'].url" :data-srcset="getSet(imgobj)" :alt="imgobj.alt">
+<template class="overflow-hidden">
+              <img class="w-full lazyimg" :src="imgobj.lq.url" :sizes="sizes" v-lazy="imgobj['720p'].url" :data-srcset="getSet(imgobj)" :alt="imgobj.alt">
 
 </template>
 <script>
 
 export default {
-  props: ["imgobj"],
+  props: ["imgobj","sizes"],
   methods: {
       getSet(imgobj) {
           let arr = []
@@ -25,3 +25,24 @@ return x
   }
 };
 </script>
+<style>
+img.lazyimg[lazy=loading] {
+	-webkit-filter: blur(10px);
+        filter: blur(10px);
+        transition-delay:400ms;
+         transform: translateZ(0);
+        max-height: 20vh;
+        opacity:0;
+		transition: all 400ms, -webkit-filter 400ms;
+  }
+  img.lazyimg[lazy=error] {
+    opacity:1;
+    transition: all .2s
+  }
+  img.lazyimg[lazy=loaded] {
+    -webkit-filter: blur(0);
+      opacity:1;
+     transform: translateZ(0);
+		filter: blur(0);
+  }
+</style>

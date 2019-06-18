@@ -15,7 +15,7 @@
     >
       <div class="rounded overflow-hidden shadow-lg bg-white flex flex-col">
         <nuxt-link :to="`/${m.meta.type}/${m.meta.slug}`">
-        <ImageSrcSet :imgobj="m.image" />
+        <ImageSrcSet sizes="(min-width: 768px) 400px, 100vw" :imgobj="m.image" />
         </nuxt-link>
         <div class="px-6 pt-4 pb-6 border-b flex-grow">
           <nuxt-link
@@ -24,7 +24,7 @@
             :to="`/${m.meta.type}/${m.meta.slug}`"
           >{{m.title}}</nuxt-link>
           <p class="text-brown-800 text-sm" v-unorphan>{{m.short_desc}}</p>
-          <timeago class="text-xs text-orange-500" :datetime="m.date"></timeago>
+        <font-awesome-icon class="text-orange-500 text-xs" :icon="['fas', 'clock']"/>  <timeago class="text-xs text-orange-500" :datetime="m.date"></timeago>
         </div>
         <div class="w-100 bg-brown-300">
           <div class="pl-4 pt-3 pb-2 w-max-content">

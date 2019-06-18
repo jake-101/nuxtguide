@@ -45,18 +45,7 @@
  * @import "tailwindcss/utilities";
  */
 @tailwind utilities;
-img[lazy=loading] {
-    opacity:0;
-    transition: opacity .2s
-  }
-  img[lazy=error] {
-    opacity:1;
-    transition: opacity .2s
-  }
-  img[lazy=loaded] {
-    opacity:1;
-    transition: opacity .2s
-  }
+
 .w-max-content {width:max-content;overflow-x:auto;scrollbar-width: none;}
 
   .sidemenu .bm-burger-button {
