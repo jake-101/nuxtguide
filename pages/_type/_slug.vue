@@ -2,7 +2,7 @@
   <section class="flex flex-wrap justify-left flex-col lg:flex-row md:ml-3" >
     <ArticleCard class="w-full lg:w-1/2 lg:pr-3 pb-3 flex flex-col">
       <ImageSrcSet v-if="!embed.html" class="w-full h-auto  rounded shadow-lg" sizes="(min-width: 1024px) 500px, 650px" :imgobj="image"/>
-      <div class="video-container" v-html="embed.html"></div>
+      <div v-if="embed.html" class="video-container" v-html="embed.html"></div>
           <ul class="text-xs flex  text-gray-700  flex-initial" v-if="likes || views">
      <li class="py-2 my-3 mr-2 px-3 bg-gray-300 rounded" v-if="views"><font-awesome-icon :icon="['fas', 'eye']"/> {{views}}</li>      <li class="py-2 my-3 mr-2 px-3 bg-gray-300 rounded" v-if="likes >= 0"><font-awesome-icon :icon="['fas', 'heart']"/> {{likes}}</li>
 
