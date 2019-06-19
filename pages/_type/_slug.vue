@@ -1,7 +1,8 @@
 <template class="flex justify-center" :data-wio-id="meta.id">
   <section class="flex flex-wrap justify-left flex-col lg:flex-row md:ml-3" >
     <ArticleCard class="w-full lg:w-1/2 lg:pr-3 pb-3 flex flex-col">
-      <ImageSrcSet class="w-full h-auto  rounded shadow-lg" sizes="(min-width: 1024px) 500px, 650px" :imgobj="image"/>
+      <ImageSrcSet v-if="!embed" class="w-full h-auto  rounded shadow-lg" sizes="(min-width: 1024px) 500px, 650px" :imgobj="image"/>
+      <div class="video-container" v-html="embed.html"></div>
           <ul class="text-xs flex  text-gray-700  flex-initial" v-if="likes || views">
      <li class="py-2 my-3 mr-2 px-3 bg-gray-300 rounded" v-if="views"><font-awesome-icon :icon="['fas', 'eye']"/> {{views}}</li>      <li class="py-2 my-3 mr-2 px-3 bg-gray-300 rounded" v-if="likes >= 0"><font-awesome-icon :icon="['fas', 'heart']"/> {{likes}}</li>
 
@@ -103,6 +104,7 @@ export default {
 
       title: app.$prismic.asText(document.data.title),
       description: app.$prismic.asHtml(document.data.content),
+       embed: document.data.embed,
       link: app.$prismic.asLink(document.data.link),
       demolink: app.$prismic.asLink(document.data.demo_link),
       authorlink: app.$prismic.asLink(document.data.author_link),
@@ -168,5 +170,20 @@ this.likes = doc.data().likes
 }
 .description a:hover {
   text-decoration: underline;
+}
+.video-container {
+position: relative;
+padding-bottom: 56.25%;
+padding-top: 30px; height: 0; overflow: hidden;
+}
+
+.video-container iframe,
+.video-container object,
+.video-container embed {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
 }
 </style>
