@@ -1,4 +1,6 @@
 const pkg = require("./package");
+const Prismic = require('prismic-javascript');
+
 const prismicEndpoint = 'https://jake101.cdn.prismic.io/api/v2';
 
 // TODO: Factor in Page Size > 100
