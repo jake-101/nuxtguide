@@ -1,12 +1,23 @@
 <template class="flex justify-center" :data-wio-id="meta.id">
-  <section class="flex flex-wrap justify-left flex-col lg:flex-row md:ml-3" >
+  <section class="flex flex-wrap justify-left flex-col lg:flex-row md:ml-3">
     <ArticleCard class="w-full lg:w-1/2 lg:pr-3 pb-3 flex flex-col">
-      <ImageSrcSet v-if="!embed.html" class="w-full h-auto  rounded shadow-lg" sizes="(min-width: 1024px) 500px, 650px" :imgobj="image"/>
+      <ImageSrcSet
+        v-if="!embed.html"
+        class="w-full h-auto rounded shadow-lg"
+        sizes="(min-width: 1024px) 500px, 650px"
+        :imgobj="image"
+      />
       <div v-if="embed.html" class="video-container" v-html="embed.html"></div>
-          <ul class="text-xs flex  text-gray-700  flex-initial" v-if="likes || views">
-     <li class="py-2 my-3 mr-2 px-3 bg-gray-300 rounded" v-if="views"><font-awesome-icon :icon="['fas', 'eye']"/> {{views}}</li>      <li class="py-2 my-3 mr-2 px-3 bg-gray-300 rounded" v-if="likes >= 0"><font-awesome-icon :icon="['fas', 'heart']"/> {{likes}}</li>
-
-    </ul>
+      <ul class="text-xs flex text-gray-700 flex-initial" v-if="likes || views">
+        <li class="py-2 my-3 mr-2 px-3 bg-gray-300 rounded" v-if="views">
+          <font-awesome-icon :icon="['fas', 'eye']"/>
+          {{views}}
+        </li>
+        <li class="py-2 my-3 mr-2 px-3 bg-gray-300 rounded" v-if="likes >= 0">
+          <font-awesome-icon :icon="['fas', 'heart']"/>
+          {{likes}}
+        </li>
+      </ul>
     </ArticleCard>
     <ArticleCard class="w-full lg:w-1/2 lg:pr-3 pb-1 flex flex-col">
       <div
@@ -32,12 +43,16 @@
             <a v-if="link" :href="link">
               <button
                 class="bg-brown-800 hover:bg-brown-900 text-white font-bold py-2 px-4 rounded"
-              ><font-awesome-icon  :icon="['fas', 'home']"/>  Homepage</button>
+              >
+                <font-awesome-icon :icon="['fas', 'home']"/>Homepage
+              </button>
             </a>
             <a v-if="demolink" :href="demolink">
               <button
                 class="bg-brown-800 hover:bg-brown-900 text-white font-bold py-2 px-4 rounded"
-              ><font-awesome-icon  :icon="['fas', 'laptop-code']"/> Demo</button>
+              >
+                <font-awesome-icon :icon="['fas', 'laptop-code']"/>Demo
+              </button>
             </a>
             <a v-if="authorlink" :href="authorlink">
               <button
@@ -54,11 +69,11 @@
           :key="tag"
         >{{tag}}</span>
         <span class="inline-block pr-3 py-1 text-xs text-xs text-gray-700 mr-1 mb-2">
-        <font-awesome-icon  :icon="['fas', 'clock']"/>    Last updated
+          <font-awesome-icon :icon="['fas', 'clock']"/>Last updated
           <timeago :datetime="date"></timeago>
         </span>
       </div>
-      <RelatedItems  v-if="related.length" class="pl-2 pr-2" :items="related"/>
+      <RelatedItems v-if="related.length" class="pl-2 pr-2" :items="related"/>
     </ArticleCard>
   </section>
 </template>
@@ -69,20 +84,60 @@ import RelatedItems from "~/components/RelatedItems";
 import ImageSrcSet from "~/components/ImageSrcSet";
 
 export default {
-    head () {
+  head() {
     return {
-      title: this.title + ' | Nuxt Guide',
+      title: this.title + " | Nuxt Guide",
       meta: [
         // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-        { hid: 'description', name: 'description', content: this.short_desc }
+        { hid: "description", name: "description", content: this.short_desc },
+                {
+          hid: 'og:description',
+          property: 'og:description',
+          content: this.short_desc
+        },
+            {
+          hid: 'og:url',
+          property: 'og:url',
+          content: `https://nuxtguide.site/${this.meta.type}/${this.meta.uid}`
+        },
+        {
+          hid: 'og:image',
+          property: 'og:image',
+          content: this.image
+        },
+         {
+          hid: 'twitter:card',
+          name: 'twitter:card',
+          content: 'summary_large_image'
+        },
+        {
+          hid: 'twitter:title',
+          name: 'twitter:title',
+          content: this.title
+        },
+        {
+          hid: 'twitter:site',
+          name: 'twitter:site',
+          content: '@jasperketone'
+        },
+        {
+          hid: 'twitter:description',
+          name: 'twitter:description',
+          content: this.short_desc
+        },
+        {
+          hid: 'twitter:image',
+          name: 'twitter:image',
+          content: this.image
+        }
       ]
-    }
+    };
   },
-    data: function () {
+  data: function() {
     return {
-     views: null,
-     likes: null
-    }
+      views: null,
+      likes: null
+    };
   },
   components: { ArticleCard, RelatedItems, ImageSrcSet },
   async asyncData({ app, error, params }) {
@@ -104,7 +159,7 @@ export default {
 
       title: app.$prismic.asText(document.data.title),
       description: app.$prismic.asHtml(document.data.content),
-       embed: document.data.embed,
+      embed: document.data.embed,
       link: app.$prismic.asLink(document.data.link),
       demolink: app.$prismic.asLink(document.data.demo_link),
       authorlink: app.$prismic.asLink(document.data.author_link),
@@ -129,8 +184,8 @@ export default {
             this.createDoc(uid);
           } else {
             this.addView(this.meta.uid);
-this.views = doc.data().views
-this.likes = doc.data().likes
+            this.views = doc.data().views;
+            this.likes = doc.data().likes;
           }
         })
         .catch(err => {
@@ -172,18 +227,20 @@ this.likes = doc.data().likes
   text-decoration: underline;
 }
 .video-container {
-position: relative;
-padding-bottom: 56.25%;
-padding-top: 30px; height: 0; overflow: hidden;
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
 }
 
 .video-container iframe,
 .video-container object,
 .video-container embed {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 </style>

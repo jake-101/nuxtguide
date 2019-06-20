@@ -1,5 +1,25 @@
 const pkg = require("./package");
+const prismicEndpoint = 'https://jake101.cdn.prismic.io/api/v2';
 
+// TODO: Factor in Page Size > 100
+const routes = () =>
+	Prismic.getApi(prismicEndpoint)
+		.then(api =>
+			api.query('', {
+        pageSize: 100
+      			}),
+		)
+		.then(res => {
+			if (res.total_pages > 1) {
+				console.warn('we have more than 100 pages, fix it');
+				process.exit(1);
+			}
+			return [
+				'/',
+				...res.results.map(page => `${page.uid.replace(/_/g, '/')}/`),
+				'404',
+			];
+		});
 module.exports = {
   mode: "universal",
 
@@ -77,6 +97,7 @@ module.exports = {
       "prismic-nuxt",
       {
         endpoint: "https://jake101.cdn.prismic.io/api/v2",
+        deferLoad: true,
         linkResolver: function(doc, ctx) {
           return "/";
         }
@@ -128,13 +149,15 @@ module.exports = {
   /*
    ** Axios module configuration
    */
+  // router: {
+  //   middleware: 'router-auth'
+  // },
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
   generate: {
-    fallback: true
-
-    // See https://github.com/nuxt-community/axios-module#options
+    fallback: 'app.html',
+    routes,
   },
   /*
    ** Build configuration
