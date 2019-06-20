@@ -20,7 +20,7 @@
         <div class="px-6 pt-4 pb-6 border-b border-brown-500 shadow-inner flex flex-col flex-grow">
           <nuxt-link
             tag="h2"
-            class="cursor-pointer font-bold md:text-xl mb-2 no-underline hover:underline"
+            class="cursor-pointer font-bold text-md md:text-xl mb-2 no-underline hover:underline leading-snug" v-unorphan
             :to="`/${m.meta.type}/${m.meta.uid}`"
           >{{m.title}}</nuxt-link>
           <p class="text-brown-800 text-sm self-stretch flex-1" v-unorphan>{{m.short_desc}}</p>
@@ -44,7 +44,7 @@
               class="cursor-pointer inline-block bg-brown-800 hover:bg-brown-900 rounded px-3 py-1 text-xs font-semibold text-brown-100 shadow mr-1 mb-2"
             >{{m.result.type | capitalize}}</nuxt-link>
             <nuxt-link tag="span" :to="`/tagged/${tag}`"
-              class="cursor-pointer inline-block bg-white border border-brown-500 rounded shadow px-3 py-1 text-xs text-brown-700 mr-1 mb-2"
+              class="cursor-pointer inline-block bg-white hover:bg-brown-200 border border-brown-500 hover:border-brown-600 rounded shadow px-3 py-1 text-xs text-brown-700 mr-1 mb-2"
               v-for="tag in m.meta.tags"
               :key="tag"
             >{{tag}}</nuxt-link>
