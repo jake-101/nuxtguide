@@ -1,5 +1,5 @@
 <template>
-  <ArticleGrid :key="total" :pagename="pagename" :pagedesc="pagedesc" :griditems="modules"/>
+  <ArticleGrid :pagename="pagename" :pagedesc="pagedesc" :griditems="modules"/>
 </template>
 
 <script>
@@ -7,7 +7,7 @@ import ArticleGrid from '~/components/ArticleGrid'
 export default {
       head () {
     return {
-      title: 'Home | Nuxt Guide',
+      title: this.$route.params.id + ' | Nuxt Guide',
       meta: [
         // hid is used as unique identifier. Do not use `vmid` for it as it will not work
         { hid: 'description', name: 'description', content: 'A collection of modules, plugins, boilerplates, tutorials, and inspiration for Nuxt.js / Vue.js' }
@@ -16,13 +16,13 @@ export default {
   },
   data: function () {
     return {
-     pagename: "Nuxt Guide",
-     pagedesc: `A hand-selected collection of modules, plugins, boilerplates, tutorials, inspiration and more for Nuxt.js`
+     pagename: this.$route.params.id,
+     pagedesc: ""
     }
   },
   components: {ArticleGrid},
-  async asyncData({ app, error }) {
-    let document = await app.$prismic.api.query('',{ orderings : '[document.last_publication_date desc]' }
+  async asyncData({ app, error,params }) {
+    let document = await app.$prismic.api.query(app.$prismic.predicates.at("document.tags", [params.id]),{ orderings : '[document.last_publication_date desc]' }
 
     );
     let guidedoc = {}
@@ -43,7 +43,6 @@ let query = await likes.get()
     console.log('Error getting documents', err);
   });
     return {
-      total: document.total_results_size,
       modules: document.results.map(result => {
         return {
           meta: {

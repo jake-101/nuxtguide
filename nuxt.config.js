@@ -18,7 +18,7 @@ const routes = () =>
 			}
 			return [
 				'/',
-				...res.results.map(page => `${page.uid.replace(/_/g, '/')}/`),
+				...res.results.map(page => `${page.type}/${page.uid.replace(/_/g, '/')}/`),
 				'404',
 			];
 		});
@@ -64,7 +64,8 @@ module.exports = {
     "~/plugins/filters",
     "~/plugins/timeago",
     { src: "~/plugins/menu", mode: "client" },
-    { src: "~/plugins/lazy", mode: "client" }
+    { src: "~/plugins/lazy", mode: "client" },
+    { src: "~/plugins/suggest", mode: "client" }
   ],
 
   /*
@@ -151,14 +152,14 @@ module.exports = {
   /*
    ** Axios module configuration
    */
-  // router: {
-  //   middleware: 'router-auth'
-  // },
+  router: {
+    middleware: 'router-auth'
+  },
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
   generate: {
-    fallback: 'app.html',
+    fallback: true,
     routes,
   },
   /*

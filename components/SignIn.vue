@@ -13,6 +13,7 @@ error: {code: null,message: null, email: null, credential: null}
     };
   },
   computed: {
+
 user() {
     return this.$store.state.user
 }
@@ -27,7 +28,8 @@ this.$fireAuth.signInWithPopup(provider).then(function(result) {
     obj.token = result.credential.accessToken
     obj.email = result.user.email
     obj.photoUrl = result.user.photoURL
-_this.$store.commit('getUser',obj)
+_this.$store.commit('setUser',obj)
+_this.$store.commit('authenticated')
 }).catch(function(error) {
   console.log(error)
   // Handle Errors here.

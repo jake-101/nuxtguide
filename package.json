@@ -23,6 +23,7 @@
     "nuxt-fontawesome": "^0.4.0",
     "nuxt-webfontloader": "^1.1.0",
     "prismic-nuxt": "^0.5.1",
+    "vue-autosuggest": "^2.0.0",
     "vue-burger-menu": "^2.0.1",
     "vue-lazyload": "^1.2.6",
     "vue-timeago": "^5.1.2",

@@ -40,6 +40,16 @@
         ></div>
         <div class="w-100 overflow-x-auto bg-brown-300">
           <div class="pl-4 pt-4 pb-4">
+     <span v-if="links">
+
+              <a v-for="l in links" :key="l.link_url.url" :target="l.link_url.target" :href="l.link_url.url">
+              <button
+                class="bg-brown-800 hover:bg-brown-900 text-white font-bold py-2 px-4 rounded"
+              >
+                {{l.link_type}}
+              </button>
+            </a>
+     </span>
             <a v-if="link" :href="link">
               <button
                 class="bg-brown-800 hover:bg-brown-900 text-white font-bold py-2 px-4 rounded"
@@ -160,6 +170,7 @@ export default {
       title: app.$prismic.asText(document.data.title),
       description: app.$prismic.asHtml(document.data.content),
       embed: document.data.embed,
+      links: document.data.links,
       link: app.$prismic.asLink(document.data.link),
       demolink: app.$prismic.asLink(document.data.demo_link),
       authorlink: app.$prismic.asLink(document.data.author_link),
@@ -171,7 +182,7 @@ export default {
     };
   },
   mounted() {
-    this.checkDoc(this.meta.uid);
+this.checkDoc(this.meta.uid)
   },
   methods: {
     async checkDoc(uid) {

@@ -7766,6 +7766,11 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.0.tgz#bd76d6a23323e2ca8ffa12028dc04559c75f9019"
   integrity sha512-iq+S7vZJE60yejDYM0ek6zg308+UZsdtPExWP9VZoCFCz1zkJoXFnAX7aZfd/ZwrkidzdUZL0C/ryW+JwAiIGw==
 
+vue-autosuggest@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/vue-autosuggest/-/vue-autosuggest-2.0.0.tgz#451478748ee5538d6c7c4c3316779cd5c0e7358e"
+  integrity sha512-0EhX7RMdMShJe2ubJSJ6wx5VHmWYuNes97aSlzUmQFX2dJABgwhABGajGTBUCxrVpMDmhXRxjwDHPVLUOwhl3w==
+
 vue-burger-menu@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/vue-burger-menu/-/vue-burger-menu-2.0.1.tgz#1060e4b00cdbdc806622607b956afd4ae2f8bf4e"
