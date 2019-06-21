@@ -73,6 +73,8 @@ module.exports = {
    */
   devModules: ["@nuxtjs/tailwindcss", "vue-unorphan/nuxt/module"],
   modules: [
+
+    'nuxt-bundle-buddy',
     '@ax2/lozad-module',
     // Doc: https://github.com/nuxt-community/axios-module#usage
     "@nuxtjs/axios",

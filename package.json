@@ -8,7 +8,8 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "webpack-defaults": "webpack-defaults"
   },
   "dependencies": {
     "@ax2/lozad-module": "^0.1.2",
@@ -19,6 +20,7 @@
     "cross-env": "^5.2.0",
     "firebase": "^6.2.0",
     "nuxt": "^2.0.0",
+    "nuxt-bundle-buddy": "^0.0.2",
     "nuxt-fire": "^1.4.1",
     "nuxt-fontawesome": "^0.4.0",
     "nuxt-webfontloader": "^1.1.0",

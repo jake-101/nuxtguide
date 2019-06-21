@@ -1,4 +1,4 @@
-<template class="flex justify-center" :data-wio-id="meta.id">
+<template class="flex justify-center">
   <section class="flex flex-wrap justify-left flex-col lg:flex-row md:ml-3">
     <ArticleCard class="w-full lg:w-1/2 lg:pr-3 pb-3 flex flex-col">
       <ImageSrcSet
@@ -13,7 +13,7 @@
           <font-awesome-icon :icon="['fas', 'eye']"/>
           {{views}}
         </li>
-        <li class="py-2 my-3 mr-2 px-3 bg-gray-300 rounded" v-if="likes >= 0">
+        <li @click="likeMe" class="py-2 my-3 mr-2 px-3 bg-gray-300 rounded" v-if="likes >= 0">
           <font-awesome-icon :icon="['fas', 'heart']"/>
           {{likes}}
         </li>
@@ -40,16 +40,18 @@
         ></div>
         <div class="w-100 overflow-x-auto bg-brown-300">
           <div class="pl-4 pt-4 pb-4">
-     <span v-if="links">
-
-              <a v-for="l in links" :key="l.link_url.url" :target="l.link_url.target" :href="l.link_url.url">
-              <button
-                class="bg-brown-800 hover:bg-brown-900 text-white font-bold py-2 px-4 rounded"
+            <span v-if="links">
+              <a
+                v-for="l in links"
+                :key="l.link_url.url"
+                :target="l.link_url.target"
+                :href="l.link_url.url"
               >
-                {{l.link_type}}
-              </button>
-            </a>
-     </span>
+                <button
+                  class="bg-brown-800 hover:bg-brown-900 text-white font-bold py-2 px-4 rounded"
+                >{{l.link_type}}</button>
+              </a>
+            </span>
             <a v-if="link" :href="link">
               <button
                 class="bg-brown-800 hover:bg-brown-900 text-white font-bold py-2 px-4 rounded"
@@ -100,44 +102,44 @@ export default {
       meta: [
         // hid is used as unique identifier. Do not use `vmid` for it as it will not work
         { hid: "description", name: "description", content: this.short_desc },
-                {
-          hid: 'og:description',
-          property: 'og:description',
+        {
+          hid: "og:description",
+          property: "og:description",
           content: this.short_desc
         },
-            {
-          hid: 'og:url',
-          property: 'og:url',
+        {
+          hid: "og:url",
+          property: "og:url",
           content: `https://nuxtguide.site/${this.meta.type}/${this.meta.uid}`
         },
         {
-          hid: 'og:image',
-          property: 'og:image',
+          hid: "og:image",
+          property: "og:image",
           content: this.image
         },
-         {
-          hid: 'twitter:card',
-          name: 'twitter:card',
-          content: 'summary_large_image'
+        {
+          hid: "twitter:card",
+          name: "twitter:card",
+          content: "summary_large_image"
         },
         {
-          hid: 'twitter:title',
-          name: 'twitter:title',
+          hid: "twitter:title",
+          name: "twitter:title",
           content: this.title
         },
         {
-          hid: 'twitter:site',
-          name: 'twitter:site',
-          content: '@jasperketone'
+          hid: "twitter:site",
+          name: "twitter:site",
+          content: "@jasperketone"
         },
         {
-          hid: 'twitter:description',
-          name: 'twitter:description',
+          hid: "twitter:description",
+          name: "twitter:description",
           content: this.short_desc
         },
         {
-          hid: 'twitter:image',
-          name: 'twitter:image',
+          hid: "twitter:image",
+          name: "twitter:image",
           content: this.image
         }
       ]
@@ -145,8 +147,8 @@ export default {
   },
   data: function() {
     return {
-      views: null,
-      likes: null
+
+      mylikes: []
     };
   },
   components: { ArticleCard, RelatedItems, ImageSrcSet },
@@ -155,6 +157,41 @@ export default {
     let related = await app.$prismic.api.query(
       app.$prismic.predicates.similar(document.id, 8)
     );
+    const uidRef = await app.$fireStore.collection("guidedoc").doc(params.slug);
+    let obj = {};
+    let query = await uidRef
+      .get()
+      .then(doc => {
+        console.log(doc);
+        if (!doc.exists) {
+          try {
+            query.set({
+              likes: 0,
+              views: 1
+            });
+          } catch (e) {
+            alert(e);
+            return;
+          }
+        } else {
+          obj["views"] = doc.data().views;
+        }
+      })
+      .catch(err => {
+        console.log("Error getting document", err);
+      });
+    const likeRef = await app.$fireStore.collection("likes");
+    let queryRef = await likeRef.where("pageId", "==", params.slug);
+    await queryRef.get().then(function(querySnapshot) {
+      let arr = [];
+      console.warn(querySnapshot.size);
+      obj["likes"] = querySnapshot.size;
+      querySnapshot.forEach(function(doc) {
+        arr.push(doc.data());
+        // doc.data() is never undefined for query doc snapshots
+      });
+      obj["likedata"] = arr;
+    });
 
     return {
       meta: {
@@ -166,7 +203,9 @@ export default {
         type: document.type,
         slug: document.slugs[0]
       },
-
+      likes: obj["likes"],
+      likedata: obj["likedata"],
+      views: obj["views"],
       title: app.$prismic.asText(document.data.title),
       description: app.$prismic.asHtml(document.data.content),
       embed: document.data.embed,
@@ -182,37 +221,41 @@ export default {
     };
   },
   mounted() {
-this.checkDoc(this.meta.uid)
+    this.addView(this.meta.uid);
+  },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    }
   },
   methods: {
-    async checkDoc(uid) {
-      const uidRef = this.$fireStore.collection("guidedoc").doc(uid);
+    async likeMe() {
+      let _this = this;
+      let data = {
+        pageId: this.meta.uid
+      };
+      data[`${this.user.uid}`] = this.user.name;
 
-      let getDoc = uidRef
-        .get()
-        .then(doc => {
-          if (!doc.exists) {
-            this.createDoc(uid);
-          } else {
-            this.addView(this.meta.uid);
-            this.views = doc.data().views;
-            this.likes = doc.data().likes;
-          }
-        })
-        .catch(err => {
-          console.log("Error getting document", err);
-        });
-    },
-    async createDoc(uid) {
-      const docRef = this.$fireStore.collection("guidedoc").doc(uid);
-      try {
-        await docRef.set({
-          likes: 0,
-          views: 1
-        });
-      } catch (e) {
-        alert(e);
-        return;
+      const likeRef = await this.$fireStore.collection("likes");
+      let mylike = await likeRef.where(this.user.uid, "==", this.user.uid);
+await mylike.get().then(function (querySnapshot) {
+    querySnapshot.forEach(function (doc) {
+       _this.mylikes.push(doc.data())
+    });
+});
+    
+      if (x) {
+        mylike
+          .doc()
+          .delete()
+          .then(function() {
+            console.log("Document successfully deleted!");
+          })
+          .catch(function(error) {
+            console.error("Error removing document: ", error);
+          });
+      } else {
+        likeRef.doc().set(data);
       }
     },
     async addView(uid) {
