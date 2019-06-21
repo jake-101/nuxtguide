@@ -1,6 +1,7 @@
 <template>
+<div class="w-full">
   <ArticleGrid :pagename="this.$route.params.type" :pagedesc="pagedesc" :griditems="modules"/>
-
+</div>
 </template>
 
 <script>

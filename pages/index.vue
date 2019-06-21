@@ -1,13 +1,20 @@
 <template>
-<div>
+<div class="w-full">
   <ArticleGrid :pages="page" :pagename="pagename" :pagedesc="pagedesc" :griditems="modules"/>
   
 </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 import ArticleGrid from '~/components/ArticleGrid'
 export default {
+    fetch ({ store, params,app }) {
+        const ref = app.$fireStore
+      .collection('likes')
+store.dispatch('likesRef',ref)
+  },
       head () {
     return {
       title: 'Home | Nuxt Guide',
@@ -41,7 +48,7 @@ let query = await likes.get()
       guidedoc[doc.id] = {likes: doc.data().likes, views: doc.data().views}
     });
 
-  })
+   })
   .catch(err => {
     console.log('Error getting documents', err);
   });
@@ -65,6 +72,7 @@ let query = await likes.get()
           },
           likes: guidedoc[result.uid].likes,
           views: guidedoc[result.uid].views,
+
           title: app.$prismic.asText(result.data.title),
           short_desc: result.data.short_description,
           image: result.data.post_image,

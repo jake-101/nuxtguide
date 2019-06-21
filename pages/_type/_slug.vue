@@ -1,35 +1,26 @@
-<template class="flex justify-center">
-  <section class="flex flex-wrap justify-left flex-col lg:flex-row md:ml-3">
-    <ArticleCard class="w-full lg:w-1/2 lg:pr-3 pb-3 flex flex-col">
+<template class="flex justify-center items-center">
+  <section class="flex flex-wrap justify-left flex-row lg:flex-row md:ml-3 w-full lg:max-w-6xl">
+    <ArticleCard index="0" key="top" class="w-full pb-3 flex flex-col mb-8">
       <ImageSrcSet
         v-if="!embed.html"
         class="w-full h-auto rounded shadow-lg"
         sizes="(min-width: 1024px) 500px, 650px"
         :imgobj="image"
       />
-      <div v-if="embed.html" class="video-container" v-html="embed.html"></div>
-      <ul class="text-xs flex text-gray-700 flex-initial" v-if="likes || views">
-        <li class="py-2 my-3 mr-2 px-3 bg-gray-300 rounded" v-if="views">
-          <font-awesome-icon :icon="['fas', 'eye']"/>
-          {{views}}
-        </li>
-        <li @click="likeMe" class="py-2 my-3 mr-2 px-3 bg-gray-300 rounded" v-if="likes >= 0">
-          <font-awesome-icon :icon="['fas', 'heart']"/>
-          {{likes}}
-        </li>
-      </ul>
+      <div v-if="embed.html" class="video-container rounded shadow-lg bg-white" v-html="embed.html"></div>
+     
     </ArticleCard>
-    <ArticleCard class="w-full lg:w-1/2 lg:pr-3 pb-1 flex flex-col">
+    <ArticleCard index="1" key="main" class="w-full pb-1 flex flex-row flex-wrap">
       <div
-        class="rounded overflow-hidden shadow-lg bg-white flex flex-col border-t-8 border-brown-800"
+        class="rounded overflow-hidden shadow-lg bg-white flex flex-col border-t-8 w-full lg:w-3/4 xl:w-2/3 border-brown-800 mb-8"
       >
-        <div class="px-6 pt-4 pb-4 flex-grow border-b-2 border-brown-300">
-          <h2 class="font-bold text-4xl mb-3 inline-block mt-4">{{title}}</h2>
-          <p class="text-brown-700 text-lg mb-2">
+        <div class="px-6 pt-4 pb-4 border-b-2 border-brown-300">
+          <h2 class="font-bold text-3xl md:text-4xl mb-3 inline-block mt-4" v-unorphan>{{title}}</h2>
+          <p class="text-brown-700 text-lg mb-2 leading-relaxed">
             <nuxt-link
               tag="span"
               :to="`/${meta.type}/`"
-              class="cursor-pointer inline-block bg-brown-800 hover:bg-brown-900 rounded px-3 py-1 text-xs font-semibold text-brown-100 shadow-inner mr-1 mb-2"
+              class="cursor-pointer inline bg-brown-800 hover:bg-brown-900 rounded px-3 py-1 text-xs font-semibold text-brown-100 shadow-inner mr-1 mb-2"
             >{{result.type | capitalize}}</nuxt-link>
             <span v-unorphan>{{short_desc}}</span>
           </p>
@@ -48,7 +39,7 @@
                 :href="l.link_url.url"
               >
                 <button
-                  class="bg-brown-800 hover:bg-brown-900 text-white font-bold py-2 px-4 rounded"
+                  class="bg-brown-800 hover:bg-brown-900 text-white font-bold py-2 px-4 mr-1 rounded"
                 >{{l.link_type}}</button>
               </a>
             </span>
@@ -56,14 +47,14 @@
               <button
                 class="bg-brown-800 hover:bg-brown-900 text-white font-bold py-2 px-4 rounded"
               >
-                <font-awesome-icon :icon="['fas', 'home']"/>Homepage
+                <font-awesome-icon :icon="['fas', 'home']"/> Homepage
               </button>
             </a>
             <a v-if="demolink" :href="demolink">
               <button
                 class="bg-brown-800 hover:bg-brown-900 text-white font-bold py-2 px-4 rounded"
               >
-                <font-awesome-icon :icon="['fas', 'laptop-code']"/>Demo
+                <font-awesome-icon :icon="['fas', 'laptop-code']"/> Demo
               </button>
             </a>
             <a v-if="authorlink" :href="authorlink">
@@ -74,19 +65,38 @@
           </div>
         </div>
       </div>
-      <div class="mt-8 mx-2">
-        <span
-          class="inline-block bg-white rounded shadow px-3 py-1 text-xs text-gray-700 mr-1 mb-6"
+ <ArticleCard index="2" key="meta" class="w-full md:w-1/3 lg:w-1/4 xl:w-1/3 pb-1 flex flex-col order-3 md:order-none"> <div class="lg:pl-3">      <div class="w-full py-3 mb-3 px-3 bg-gray-300 text-gray-800 rounded">
+      <h2>Meta</h2>
+    </div>    <ul class="text-xs flex text-gray-700 flex-initial mb-4" v-if="likes || views">
+        <li class="h-16 flex items-center justify-center w-1/2 py-2 mb-3 mr-2 px-3 bg-white rounded" v-if="views">
+          <font-awesome-icon class="mr-1" :icon="['fas', 'eye']"/> 
+          {{views}}
+        </li>
+        <li  class="h-16 items-center justify-center flex w-1/2 py-2 mb-3 px-3 bg-white rounded" v-if="likes >= 0">
+          <font-awesome-icon class="mr-1" :icon="['fas', 'heart']"/> 
+          {{likes}}
+        </li>
+      </ul>
+      <div class="w-full py-3 mb-3 px-3 bg-gray-300 text-gray-800 rounded">
+      <h2>Tag</h2>
+    </div>  
+                    <div class="mt-2 mb-4">
+        <n-link tag="span" :to="`/tagged/${tag}`"
+          class="cursor-pointer inline-block bg-white rounded shadow px-3 py-1 text-xs text-gray-700 mr-1 mb-1"
           v-for="tag in meta.tags"
           :key="tag"
-        >{{tag}}</span>
-        <span class="inline-block pr-3 py-1 text-xs text-xs text-gray-700 mr-1 mb-2">
-          <font-awesome-icon :icon="['fas', 'clock']"/>Last updated
-          <timeago :datetime="date"></timeago>
-        </span>
+        >{{tag}}</n-link>
+
       </div>
-      <RelatedItems v-if="related.length" class="pl-2 pr-2" :items="related"/>
+              <span class="inline-block pr-3 py-1 text-xs text-xs text-gray-700 mr-1 mb-2">
+          <font-awesome-icon :icon="['fas', 'clock']"/> Last updated 
+           <timeago :datetime="date"></timeago>  
+        </span>
+        </div>  
+        </ArticleCard>
+      <RelatedItems v-if="related.length" class="md:pl-2 md:pr-2 lg:pr-0 xl:w-2/3 md:w-2/3 lg:w-3/4 order-last md:order-none" :items="related"/>
     </ArticleCard>
+       
   </section>
 </template>
 
@@ -94,8 +104,14 @@
 import ArticleCard from "~/components/ArticleCard";
 import RelatedItems from "~/components/RelatedItems";
 import ImageSrcSet from "~/components/ImageSrcSet";
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
+      fetch ({ store, params,app }) {
+        const ref = app.$fireStore
+      .collection('likes')
+store.dispatch('likesRef',ref)
+  },
   head() {
     return {
       title: this.title + " | Nuxt Guide",
@@ -224,9 +240,14 @@ export default {
     this.addView(this.meta.uid);
   },
   computed: {
+        ...mapGetters([
+      'getMyLikes',
+      // ...
+    ]),
     user() {
       return this.$store.state.user;
-    }
+    },
+
   },
   methods: {
     async likeMe() {
@@ -243,8 +264,10 @@ await mylike.get().then(function (querySnapshot) {
        _this.mylikes.push(doc.data())
     });
 });
+
+
     
-      if (x) {
+      // if (found) {
         mylike
           .doc()
           .delete()
@@ -254,9 +277,9 @@ await mylike.get().then(function (querySnapshot) {
           .catch(function(error) {
             console.error("Error removing document: ", error);
           });
-      } else {
-        likeRef.doc().set(data);
-      }
+      // } else {
+      //   likeRef.doc().set(data);
+      // }
     },
     async addView(uid) {
       const increment = this.$fireStoreObj.FieldValue.increment(1);

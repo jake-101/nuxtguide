@@ -21,7 +21,7 @@
             v-unorphan
             :to="`/${m.meta.type}/${m.meta.uid}`"
           >{{m.title}}</nuxt-link>
-          <p class="text-brown-800 text-sm self-stretch flex-1" v-unorphan>{{m.short_desc}}</p>
+          <p class="text-brown-800 md:text-sm text-base self-stretch flex-1" v-unorphan>{{m.short_desc}}</p>
           <ul class="text-xs flex text-brown-700 flex-initial">
             <li class="mt-3 mr-3">
               <font-awesome-icon class="text-xs" :icon="['fas', 'clock']"/>
@@ -37,17 +37,17 @@
             </li>
           </ul>
         </div>
-        <div class="w-100 bg-brown-300">
-          <div class="pl-4 pt-3 pb-2 w-max-content">
+        <div class="w-100 bg-brown-300 overflow-x-auto disable-scrollbars pl-4 pt-3 pb-2">
+          <div class=" w-max-content related-container ">
             <nuxt-link
               tag="span"
               :to="`/${m.meta.type}/`"
-              class="cursor-pointer inline-block bg-brown-800 hover:bg-brown-900 rounded px-3 py-1 text-xs font-semibold text-brown-100 shadow mr-1 mb-2"
+              class="cursor-pointer related-item inline-block bg-brown-800 hover:bg-brown-900 rounded px-3 py-1 text-xs font-semibold text-brown-100 shadow mr-1 mb-2"
             >{{m.result.type | capitalize}}</nuxt-link>
             <nuxt-link
               tag="span"
               :to="`/tagged/${tag}`"
-              class="cursor-pointer inline-block bg-white hover:bg-brown-200 border border-brown-500 hover:border-brown-600 rounded shadow px-3 py-1 text-xs text-brown-700 mr-1 mb-2"
+              class="cursor-pointer related-item inline-block bg-white hover:bg-brown-200 border border-brown-500 hover:border-brown-600 rounded shadow px-3 py-1 text-xs text-brown-700 mr-1 mb-2"
               v-for="tag in m.meta.tags"
               :key="tag"
             >{{tag}}</nuxt-link>

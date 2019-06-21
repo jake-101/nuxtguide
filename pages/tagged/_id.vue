@@ -1,5 +1,8 @@
 <template>
+<div class="w-full">
+
   <ArticleGrid :pagename="pagename" :pagedesc="pagedesc" :griditems="modules"/>
+  </div>
 </template>
 
 <script>

@@ -109,6 +109,22 @@
     margin-left: 10px;
     font-weight: 700;
   }
+  .disable-scrollbars::-webkit-scrollbar {
+    width: 0px;
+    height:0px;
+    background: transparent; /* Chrome/Safari/Webkit */
+}
+
+.disable-scrollbars {
+  scrollbar-width: none; /* Firefox */
+
+  -ms-overflow-style: none;  /* IE 10+ */
+}
+
+.related-item {
+  scroll-snap-align: start;
+
+}
 /**
  * Here you would add any custom utilities you need that don't come out of the
  * box with Tailwind.
