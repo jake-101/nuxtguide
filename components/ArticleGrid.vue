@@ -10,7 +10,7 @@
       </div>
     </ArticleCard>
     <ArticleCard v-for="m in griditems" :key="m.meta.id" class="w-full md:pr-3 pb-3 flex">
-      <div class="rounded overflow-hidden shadow-lg bg-white flex w-full flex-col stretch-items">
+      <div class="articlecard rounded overflow-hidden shadow-lg hover:shadow-2xl bg-white flex w-full flex-col stretch-items">
         <nuxt-link :to="`/${m.meta.type}/${m.meta.uid}`">
           <ImageSrcSet sizes="(min-width: 768px) 400px, 600px" :imgobj="m.image"/>
         </nuxt-link>
@@ -129,6 +129,14 @@ export default {
 };
 </script>
 <style>
+.articlecard {
+  transition: .5s box-shadow;
+
+}
+.articlecard:hover {
+  transition: .5s box-shadow;
+
+}
 .articlegrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));

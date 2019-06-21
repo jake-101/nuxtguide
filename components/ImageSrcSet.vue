@@ -1,4 +1,5 @@
 <template class="overflow-hidden">
+<div class="aspect-ratio-wide ">
   <img draggable="false"
     class="w-full lazyimg lozad"
     :src="imgobj.lq.url"
@@ -7,6 +8,7 @@
     :data-srcset="getSet(imgobj)"
     :alt="imgobj.alt"
   >
+  </div>
 </template>
 <script>
 export default {
@@ -44,9 +46,31 @@ export default {
 };
 </script>
 <style>
+[class*='ratio-'] {
+  display: block;
+  position: relative;
+}
+
+[class*='ratio-'] > * {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.aspect-ratio-wide {
+  padding-top: 56.25%;
+}
+
+.aspect-ratio-square {
+  padding-top: 100%;
+}
 img.lazyimg[data-loaded="false"] {
 opacity:0;
   transform: translateZ(0);
+  transition-delay: 350ms;
   transition: all 400ms, -webkit-filter 400ms;
 }
 img.lazyimg[lazy="error"] {
@@ -54,7 +78,8 @@ img.lazyimg[lazy="error"] {
   transition: all 0.2s;
 }
 img.lazyimg[data-loaded="true"] {
-  opacity: 1;
+  opacity: 1;  transition-delay: 350ms;
+
     transition: all 400ms, -webkit-filter 400ms;
 
   transform: translateZ(0);

@@ -62,7 +62,7 @@
     </main>
     <footer class="m-12">
       <ul class="flex justify-around text-gray-700 text-xs font-light">
-        <li class="mx-2">Made with love by Jake101</li>
+        <li class="mx-2">Made with love by <a class="text-gray-800 hover:underline" href="https://jake101.com">Jake101</a></li>
 
         <li class="mx-2">© 2019 Nuxt Guide.</li>
         <li class="mx-2">Submit</li>
