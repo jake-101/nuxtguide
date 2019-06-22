@@ -168,7 +168,7 @@ store.dispatch('likesRef',ref)
     };
   },
   components: { ArticleCard, RelatedItems, ImageSrcSet },
-  async asyncData({ app, error, params }) {
+  async asyncData({ app, error, params,state }) {
     let document = await app.$prismic.api.getByUID(params.type, params.slug);
     let related = await app.$prismic.api.query(
       app.$prismic.predicates.similar(document.id, 8)
@@ -250,37 +250,7 @@ store.dispatch('likesRef',ref)
 
   },
   methods: {
-    async likeMe() {
-      let _this = this;
-      let data = {
-        pageId: this.meta.uid
-      };
-      data[`${this.user.uid}`] = this.user.name;
 
-      const likeRef = await this.$fireStore.collection("likes");
-      let mylike = await likeRef.where(this.user.uid, "==", this.user.uid);
-await mylike.get().then(function (querySnapshot) {
-    querySnapshot.forEach(function (doc) {
-       _this.mylikes.push(doc.data())
-    });
-});
-
-
-    
-      // if (found) {
-        mylike
-          .doc()
-          .delete()
-          .then(function() {
-            console.log("Document successfully deleted!");
-          })
-          .catch(function(error) {
-            console.error("Error removing document: ", error);
-          });
-      // } else {
-      //   likeRef.doc().set(data);
-      // }
-    },
     async addView(uid) {
       const increment = this.$fireStoreObj.FieldValue.increment(1);
       const docRef = this.$fireStore.collection("guidedoc").doc(uid);
