@@ -1,6 +1,6 @@
 <template>
 <div class="w-full">
-  <ArticleGrid :pages="page" :pagename="pagename" :pagedesc="pagedesc" :griditems="modules"/>
+  <ArticleGrid v-if="documents" :page="page" :pagename="pagename"  :pagedesc="pagedesc" :griditems="documents"/>
   
 </div>
 </template>
@@ -10,11 +10,11 @@ import { mapGetters, mapActions } from 'vuex'
 
 import ArticleGrid from '~/components/ArticleGrid'
 export default {
-    fetch ({ store, params,app }) {
-        const ref = app.$fireStore
-      .collection('likes')
-store.dispatch('likesRef',ref)
-  },
+//     fetch ({ store, params,app }) {
+//         const ref = app.$fireStore
+//       .collection('likes')
+// store.dispatch('likesRef',ref)
+//   },
       head () {
     return {
       title: 'Home | Nuxt Guide',
@@ -30,36 +30,17 @@ store.dispatch('likesRef',ref)
      pagedesc: `A hand-selected collection of modules, plugins, boilerplates, tutorials, inspiration and more for Nuxt.js`
     }
   },
+ 
   components: {ArticleGrid},
   async asyncData({ app, error }) {
     let document = await app.$prismic.api.query('',{ orderings : '[document.last_publication_date desc]' }
 
     );
-    let guidedoc = {}
-let likes = await app.$fireStore.collection("guidedoc")
-let query = await likes.get()
-  .then(snapshot => {
-    if (snapshot.empty) {
-      console.log('No matching documents.');
-      return;
-    }  
 
-    snapshot.forEach(doc => {
-      guidedoc[doc.id] = {likes: doc.data().likes, views: doc.data().views}
-    });
-
-   })
-  .catch(err => {
-    console.log('Error getting documents', err);
-  });
     return {
-      page: {
-      results: document.results_size,
-      perPage: document.results_per_page,
-      totalPages: document.total_pages,
-      },
+
    
-      modules: document.results.map(result => {
+      documents: document.results.map(result => {
         return {
           meta: {
             id: result.id,
@@ -68,19 +49,21 @@ let query = await likes.get()
             publicationDate: app.$prismic.asDate(result.first_publication_date),
             tags: result.tags,
             type: result.type,
-            slug: result.slugs[0]
           },
-          likes: guidedoc[result.uid].likes,
-          views: guidedoc[result.uid].views,
+
 
           title: app.$prismic.asText(result.data.title),
           short_desc: result.data.short_description,
           image: result.data.post_image,
-          result: result,
           date: result.last_publication_date
         };
       }),
-
+      page: {
+      results: document.results_size,
+      perPage: document.results_per_page,
+      totalPages: document.total_pages,
+      totalResults: document.total_results_size
+      },
     };
   }
 };

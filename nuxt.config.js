@@ -155,7 +155,6 @@ module.exports = {
    ** Axios module configuration
    */
   router: {
-    middleware: 'router-auth'
   },
   axios: {
     // See https://github.com/nuxt-community/axios-module#options

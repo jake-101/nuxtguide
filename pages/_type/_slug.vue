@@ -8,7 +8,6 @@
         :imgobj="image"
       />
       <div v-if="embed.html" class="video-container rounded shadow-lg bg-white" v-html="embed.html"></div>
-     
     </ArticleCard>
     <ArticleCard index="1" key="main" class="w-full pb-1 flex flex-row flex-wrap">
       <div
@@ -47,14 +46,14 @@
               <button
                 class="bg-brown-800 hover:bg-brown-900 text-white font-bold py-2 px-4 rounded"
               >
-                <font-awesome-icon :icon="['fas', 'home']"/> Homepage
+                <font-awesome-icon :icon="['fas', 'home']"/>Homepage
               </button>
             </a>
             <a v-if="demolink" :href="demolink">
               <button
                 class="bg-brown-800 hover:bg-brown-900 text-white font-bold py-2 px-4 rounded"
               >
-                <font-awesome-icon :icon="['fas', 'laptop-code']"/> Demo
+                <font-awesome-icon :icon="['fas', 'laptop-code']"/>Demo
               </button>
             </a>
             <a v-if="authorlink" :href="authorlink">
@@ -65,38 +64,56 @@
           </div>
         </div>
       </div>
- <ArticleCard index="2" key="meta" class="w-full md:w-1/3 lg:w-1/4 xl:w-1/3 pb-1 flex flex-col order-3 md:order-none"> <div class="lg:pl-3">      <div class="w-full py-3 mb-3 px-3 bg-gray-300 text-gray-800 rounded">
-      <h2>Meta</h2>
-    </div>    <ul class="text-xs flex text-gray-700 flex-initial mb-4" v-if="likes || views">
-        <li class="h-16 flex items-center justify-center w-1/2 py-2 mb-3 mr-2 px-3 bg-white rounded" v-if="views">
-          <font-awesome-icon class="mr-1" :icon="['fas', 'eye']"/> 
-          {{views}}
-        </li>
-        <li  class="h-16 items-center justify-center flex w-1/2 py-2 mb-3 px-3 bg-white rounded" v-if="likes >= 0">
-          <font-awesome-icon class="mr-1" :icon="['fas', 'heart']"/> 
-          {{likes}}
-        </li>
-      </ul>
-      <div class="w-full py-3 mb-3 px-3 bg-gray-300 text-gray-800 rounded">
-      <h2>Tag</h2>
-    </div>  
-                    <div class="mt-2 mb-4">
-        <n-link tag="span" :to="`/tagged/${tag}`"
-          class="cursor-pointer inline-block bg-white rounded shadow px-3 py-1 text-xs text-gray-700 mr-1 mb-1"
-          v-for="tag in meta.tags"
-          :key="tag"
-        >{{tag}}</n-link>
+      <ArticleCard
+        index="2"
+        key="meta"
+        class="w-full md:w-1/3 lg:w-1/4 xl:w-1/3 pb-1 flex flex-col order-3 md:order-none"
+      >
+        <div class="lg:pl-3">
+         <div class="w-full py-3 mb-3 px-3 bg-gray-300 text-gray-800 rounded">
+            <h2>Meta</h2>
+          </div>
+          <ul class="text-xs flex text-gray-700 flex-initial mb-4" v-if="pageLikes || views">
+            <li
+              class="h-16 flex items-center justify-center w-1/2 py-2 mb-3 mr-2 px-3 bg-white rounded"
+              v-if="views"
+            >
+              <font-awesome-icon class="mr-1" :icon="['fas', 'eye']"/>
+              {{views}}
+            </li>
+            <li @click="toggleLike" v-bind:class="{ liked: isLiked }"
+              class="cursor-pointer h-16 items-center justify-center flex w-1/2 py-2 mb-3 px-3 bg-white rounded"
+            
+            >
+              <font-awesome-icon class="mr-1" :icon="['fas', 'heart']"/>
 
-      </div>
-              <span class="inline-block pr-3 py-1 text-xs text-xs text-gray-700 mr-1 mb-2">
-          <font-awesome-icon :icon="['fas', 'clock']"/> Last updated 
-           <timeago :datetime="date"></timeago>  
-        </span>
-        </div>  
-        </ArticleCard>
-      <RelatedItems v-if="related.length" class="md:pl-2 md:pr-2 lg:pr-0 xl:w-2/3 md:w-2/3 lg:w-3/4 order-last md:order-none" :items="related"/>
+              {{pageLikes}}
+            </li>
+          </ul> 
+          <div class="w-full py-3 mb-3 px-3 bg-gray-300 text-gray-800 rounded">
+            <h2>Tag</h2>
+          </div>
+        <div class="mt-2 mb-4">
+          <n-link
+            tag="span"
+            :to="`/tagged/${tag}`"
+            class="cursor-pointer inline-block bg-white rounded shadow px-3 py-1 text-xs text-gray-700 mr-1 mb-1"
+            v-for="tag in meta.tags"
+            :key="tag"
+          >{{tag}}</n-link>
+        </div>
+        <span class="inline-block pr-3 py-1 text-xs text-xs text-gray-700 mr-1 mb-2">
+          <font-awesome-icon :icon="['fas', 'clock']"/>Last updated
+          <timeago :datetime="date"></timeago>
+        </span>        </div>
+
+      </ArticleCard>
+      <RelatedItems
+        v-if="related.length"
+        class="md:pl-2 md:pr-2 lg:pr-0 xl:w-2/3 md:w-2/3 lg:w-3/4 order-last md:order-none"
+        :items="related"
+      />
     </ArticleCard>
-       
   </section>
 </template>
 
@@ -104,14 +121,11 @@
 import ArticleCard from "~/components/ArticleCard";
 import RelatedItems from "~/components/RelatedItems";
 import ImageSrcSet from "~/components/ImageSrcSet";
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
+import {get,filter} from 'lodash'
 
 export default {
-      fetch ({ store, params,app }) {
-        const ref = app.$fireStore
-      .collection('likes')
-store.dispatch('likesRef',ref)
-  },
+
   head() {
     return {
       title: this.title + " | Nuxt Guide",
@@ -163,51 +177,30 @@ store.dispatch('likesRef',ref)
   },
   data: function() {
     return {
-
       mylikes: []
     };
   },
   components: { ArticleCard, RelatedItems, ImageSrcSet },
-  async asyncData({ app, error, params,state }) {
+  async asyncData({ app, error, params, store }) {
     let document = await app.$prismic.api.getByUID(params.type, params.slug);
     let related = await app.$prismic.api.query(
       app.$prismic.predicates.similar(document.id, 8)
     );
-    const uidRef = await app.$fireStore.collection("guidedoc").doc(params.slug);
-    let obj = {};
-    let query = await uidRef
-      .get()
-      .then(doc => {
-        console.log(doc);
-        if (!doc.exists) {
-          try {
-            query.set({
-              likes: 0,
-              views: 1
-            });
-          } catch (e) {
-            alert(e);
-            return;
-          }
-        } else {
-          obj["views"] = doc.data().views;
-        }
-      })
-      .catch(err => {
-        console.log("Error getting document", err);
-      });
-    const likeRef = await app.$fireStore.collection("likes");
-    let queryRef = await likeRef.where("pageId", "==", params.slug);
-    await queryRef.get().then(function(querySnapshot) {
-      let arr = [];
-      console.warn(querySnapshot.size);
-      obj["likes"] = querySnapshot.size;
-      querySnapshot.forEach(function(doc) {
-        arr.push(doc.data());
-        // doc.data() is never undefined for query doc snapshots
-      });
-      obj["likedata"] = arr;
-    });
+  store.commit("setPageId", params.slug);
+
+
+    // const likeRef = await app.$fireStore.collection("likes");
+    // let queryRef = await likeRef.where("pageId", "==", params.slug);
+    // await queryRef.get().then(function(querySnapshot) {
+    //   let arr = [];
+    //   console.warn(querySnapshot.size);
+    //   obj["likes"] = querySnapshot.size;
+    //   querySnapshot.forEach(function(doc) {
+    //     arr.push(doc.data());
+    //     // doc.data() is never undefined for query doc snapshots
+    //   });
+    //   obj["likedata"] = arr;
+    // });
 
     return {
       meta: {
@@ -219,9 +212,9 @@ store.dispatch('likesRef',ref)
         type: document.type,
         slug: document.slugs[0]
       },
-      likes: obj["likes"],
-      likedata: obj["likedata"],
-      views: obj["views"],
+      // likes: count,
+      // likedata: obj["likedata"],
+      // views: obj["views"],
       title: app.$prismic.asText(document.data.title),
       description: app.$prismic.asHtml(document.data.content),
       embed: document.data.embed,
@@ -237,21 +230,52 @@ store.dispatch('likesRef',ref)
     };
   },
   mounted() {
-    this.addView(this.meta.uid);
+this.addView(this.meta.uid)
   },
+
   computed: {
-        ...mapGetters([
-      'getMyLikes',
-      // ...
-    ]),
-    user() {
-      return this.$store.state.user;
+    ...mapState({
+      likes: 'likes',
+      guidedoc: 'guidedoc'
+    }),
+    pageLikes() {
+      let x = filter(this.likes, { id: this.meta.uid })
+      return x.length;
+    },
+      isLiked() {
+     
+  let x = filter(this.likes, { id: this.meta.uid })
+let y = filter(x, this.user.uid ).length
+if (y = 0) {
+  return false
+} else if (y > 0) {
+return true
+} else {
+  return false
+}
+       
+  
+    },
+    views() {
+      let x =  filter(this.guidedoc, { id: this.meta.uid })
+      let y = x[0]
+    
+    return  get(y, 'views')
+   
+  
     },
 
-  },
-  methods: {
 
-    async addView(uid) {
+
+
+    user() {
+      return this.$store.state.user;
+    }
+  },
+  methods:  {
+        ...mapActions({
+    }),
+       async addView(uid) {
       const increment = this.$fireStoreObj.FieldValue.increment(1);
       const docRef = this.$fireStore.collection("guidedoc").doc(uid);
       try {
@@ -260,11 +284,47 @@ store.dispatch('likesRef',ref)
         alert(e);
         return;
       }
-    }
-  }
+    },
+          async toggleLike() {
+      const increment = this.$fireStoreObj.FieldValue.increment(1);
+         const decrement = this.$fireStoreObj.FieldValue.increment(-1);
+      const docRef = this.$fireStore.collection("guidedoc").doc(this.meta.uid);
+       const likeRef = this.$fireStore.collection("likes").doc(this.meta.uid);
+            if (!this.isLiked) {
+ try {
+        let data = {
+        }
+        data[this.user.uid] = "like"
+        await docRef.update({ likes: increment });
+         await this.$fireStore.collection("likes").doc(this.meta.uid).set(data, { merge: true });
+                  console.log(data)
+
+      } catch (e) {
+        alert(e + ' like');
+        return;
+      }
+            } else if (this.isLiked) {
+ try {
+let unlike = {
+}
+   unlike[this.user.uid] = this.$fireStoreObj.FieldValue.delete()
+        await docRef.update({ likes: decrement });
+         await likeRef.update(unlike);
+         console.log(unlike)
+      } catch (e) {
+        alert(e + ' unlike');
+        return;
+      }
+            }
+
+     
+    },
+    
+}
 };
 </script>
 <style>
+.liked svg path {fill:red;}
 .description a {
   text-decoration: none;
   font-weight: 600;

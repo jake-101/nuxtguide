@@ -3,7 +3,9 @@ import { vuexfireMutations, firestoreAction } from "vuexfire";
 export const state = () => ({
   user: null,
   authenticated: false,
-  likes: []
+  likes: [],
+  guidedoc: [],
+  pageId: ''
 });
 
 export const mutations = {
@@ -11,61 +13,37 @@ export const mutations = {
   setUser(state, data) {
     state.user = data;
   },
+  setPageId(state,data) {
+state.pageId = data
+  },
   authenticated(state) {
     state.authenticated = true;
   },
-      async likeMe() {
-      let _this = this;
-      let data = {
-        pageId: this.meta.uid
-      };
-      data[`${this.user.uid}`] = this.user.name;
 
-      const likeRef = await this.$fireStore.collection("likes");
-      let mylike = await likeRef.where(this.user.uid, "==", this.user.uid);
-await mylike.get().then(function (querySnapshot) {
-    querySnapshot.forEach(function (doc) {
-       _this.mylikes.push(doc.data())
-    });
-});
-
-
-    
-      // if (found) {
-        mylike
-          .doc()
-          .delete()
-          .then(function() {
-            console.log("Document successfully deleted!");
-          })
-          .catch(function(error) {
-            console.error("Error removing document: ", error);
-          });
-      // } else {
-      //   likeRef.doc().set(data);
-      // }
-    },
 };
 
 export const getters = {
-  getMyLikes: function(state) {
-    if (state.user.uid) {
-      var found = state.likes.find(function(element) {
-        return (element = state.user.uid);
-      });
-      return found;
-    }
+  // getPageLikes: function(state) {
+  //   const copy = {...state.likes}
+  //     var found = copy.find(o => o.pageId === state.pageId)
+  //     return found;
+    
   
-  }
+  // }
 };
 
 export const actions = {
-  nuxtServerInit({ dispatch }) {
-    dispatch('INIT_POSTS')
+  nuxtServerInit({ dispatch,app }) {
+   
   },
-  likesRef: firestoreAction(function(context, ref) {
-    context.bindFirestoreRef("likes", ref);
+
+  setLikesRef: firestoreAction(function(context, ref) {
+    context.bindFirestoreRef('likes', ref)
   }),
+  setGuideDocRef: firestoreAction(function(context, ref) {
+    context.bindFirestoreRef('guidedoc', ref)
+  }),
+
   fireAuth({ commit, app }) {
     const user = app.$fireAuth.currentUser;
     console.log(user);

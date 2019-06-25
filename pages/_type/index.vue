@@ -1,33 +1,46 @@
 <template>
-<div class="w-full">
-  <ArticleGrid :pagename="this.$route.params.type" :pagedesc="pagedesc" :griditems="modules"/>
-</div>
+  <div class="w-full">
+    <ArticleGrid :page="page" :pagename="this.$route.params.type" :pagedesc="pagedesc" :griditems="documents"/>
+  </div>
 </template>
 
 <script>
-import ArticleGrid from '~/components/ArticleGrid'
+import ArticleGrid from "~/components/ArticleGrid";
 export default {
-    head () {
+  head() {
     return {
-      title: this.$route.params.type + ' | Nuxt Guide',
+      title: this.$route.params.type + " | Nuxt Guide",
       meta: [
         // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-        { hid: 'description', name: 'description', content: 'A collection of modules, plugins, boilerplates, tutorials, and inspiration for Nuxt.js / Vue.js' }
+        {
+          hid: "description",
+          name: "description",
+          content:
+            "A collection of modules, plugins, boilerplates, tutorials, and inspiration for Nuxt.js / Vue.js"
+        }
       ]
-    }
+    };
   },
-    data: function () {
+  data: function() {
     return {
-     pagename: "",
-     pagedesc: ""
-    }
+      pagename: "",
+      pagedesc: ""
+    };
   },
-  components: {ArticleGrid},
-    async asyncData({ app, error, params }) {
-    let document = await app.$prismic.api.query(app.$prismic.predicates.at('document.type',params.type),{ orderings : '[document.last_publication_date desc]' });
-
+  components: { ArticleGrid },
+  async asyncData({ app, error, params }) {
+    let document = await app.$prismic.api.query(
+      app.$prismic.predicates.at("document.type", params.type),
+      { orderings: "[document.last_publication_date desc]" }
+    );
     return {
-      modules: document.results.map(result => {
+      page: {
+        results: document.results_size,
+        perPage: document.results_per_page,
+        totalPages: document.total_pages,
+        totalResults: document.total_results_size
+      },
+      documents: document.results.map(result => {
         return {
           meta: {
             id: result.id,
@@ -42,13 +55,10 @@ export default {
           short_desc: result.data.short_description,
           image: result.data.post_image,
           result: result,
-                     date: result.last_publication_date,
-
+          date: result.last_publication_date
         };
-      }),
-
+      })
     };
   }
-
 };
 </script>

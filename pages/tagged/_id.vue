@@ -1,7 +1,7 @@
 <template>
 <div class="w-full">
 
-  <ArticleGrid :pagename="pagename" :pagedesc="pagedesc" :griditems="modules"/>
+  <ArticleGrid :page="page" :pagename="pagename" :pagedesc="pagedesc" :griditems="modules"/>
   </div>
 </template>
 
@@ -46,6 +46,12 @@ let query = await likes.get()
     console.log('Error getting documents', err);
   });
     return {
+        page: {
+        results: document.results_size,
+        perPage: document.results_per_page,
+        totalPages: document.total_pages,
+        totalResults: document.total_results_size
+      },
       modules: document.results.map(result => {
         return {
           meta: {
