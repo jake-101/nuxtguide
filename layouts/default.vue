@@ -74,7 +74,6 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex'
 
 export default {
   data: function() {
@@ -94,23 +93,13 @@ export default {
       return this.$store.state.user;
     }
   },
-       created() {
-       const ref = this.$fireStore
-      .collection('likes')
-       const ref2 = this.$fireStore
-      .collection('guidedoc')
-    this.setLikesRef(ref)
-      this.setGuideDocRef(ref2)
-  },
+
   mounted() {
     this.getUser();
   },
 
   methods: {
-    ...mapActions({
-      setLikesRef: 'setLikesRef',
-            setGuideDocRef: 'setGuideDocRef'
-    }),
+
     getLink(x) {
       this.$router.push(x);
     },

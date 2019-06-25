@@ -1,7 +1,7 @@
-<template class="overflow-hidden rounded">
-<div class="aspect-ratio-wide rounded">
+<template class="overflow-hidden">
+<div class="aspect-ratio-wide">
   <img draggable="false"
-    class="w-full lazyimg lozad rounded"
+    class="w-full lazyimg lozad"
     :src="imgobj.lq.url"
     :sizes="sizes"
     :data-src="imgobj['360p'].url"

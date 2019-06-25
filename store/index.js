@@ -1,4 +1,3 @@
-import { vuexfireMutations, firestoreAction } from "vuexfire";
 
 export const state = () => ({
   user: null,
@@ -9,7 +8,6 @@ export const state = () => ({
 });
 
 export const mutations = {
-  ...vuexfireMutations,
   setUser(state, data) {
     state.user = data;
   },
@@ -37,12 +35,7 @@ export const actions = {
    
   },
 
-  setLikesRef: firestoreAction(function(context, ref) {
-    context.bindFirestoreRef('likes', ref)
-  }),
-  setGuideDocRef: firestoreAction(function(context, ref) {
-    context.bindFirestoreRef('guidedoc', ref)
-  }),
+
 
   fireAuth({ commit, app }) {
     const user = app.$fireAuth.currentUser;

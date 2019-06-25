@@ -29,22 +29,7 @@ export default {
 
     );
     let guidedoc = {}
-let likes = await app.$fireStore.collection("guidedoc")
-let query = await likes.get()
-  .then(snapshot => {
-    if (snapshot.empty) {
-      console.log('No matching documents.');
-      return;
-    }  
 
-    snapshot.forEach(doc => {
-      guidedoc[doc.id] = {likes: doc.data().likes, views: doc.data().views}
-    });
-
-  })
-  .catch(err => {
-    console.log('Error getting documents', err);
-  });
     return {
         page: {
         results: document.results_size,
@@ -63,8 +48,6 @@ let query = await likes.get()
             type: result.type,
             slug: result.slugs[0]
           },
-          likes: guidedoc[result.uid].likes,
-          views: guidedoc[result.uid].views,
           title: app.$prismic.asText(result.data.title),
           short_desc: result.data.short_description,
           image: result.data.post_image,

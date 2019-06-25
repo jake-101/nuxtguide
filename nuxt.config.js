@@ -21,7 +21,8 @@ const routes = () =>
 				...res.results.map(page => `${page.type}/${page.uid.replace(/_/g, '/')}/`),
 				'404',
 			];
-		});
+    });
+    console.log(routes)
 module.exports = {
   mode: "universal",
 
@@ -74,7 +75,6 @@ module.exports = {
   devModules: ["@nuxtjs/tailwindcss", "vue-unorphan/nuxt/module"],
   modules: [
 
-    'nuxt-bundle-buddy',
     '@ax2/lozad-module',
     // Doc: https://github.com/nuxt-community/axios-module#usage
     "@nuxtjs/axios",
@@ -111,7 +111,7 @@ module.exports = {
     [
       "nuxt-fire",
       {
-        useOnly: ["auth", "firestore"],
+        useOnly: ["auth"],
         customEnv: false,
         config: {
           development: {

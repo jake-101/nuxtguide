@@ -70,10 +70,10 @@
         class="w-full md:w-1/3 lg:w-1/4 xl:w-1/3 pb-1 flex flex-col order-3 md:order-none"
       >
         <div class="lg:pl-3">
-         <div class="w-full py-3 mb-3 px-3 bg-gray-300 text-gray-800 rounded">
+         <!-- <div class="w-full py-3 mb-3 px-3 bg-gray-300 text-gray-800 rounded">
             <h2>Meta</h2>
-          </div>
-          <ul class="text-xs flex text-gray-700 flex-initial mb-4" v-if="pageLikes || views">
+          </div> -->
+          <!-- <ul class="text-xs flex text-gray-700 flex-initial mb-4" v-if="pageLikes || views">
             <li
               class="h-16 flex items-center justify-center w-1/2 py-2 mb-3 mr-2 px-3 bg-white rounded"
               v-if="views"
@@ -89,7 +89,7 @@
 
               {{pageLikes}}
             </li>
-          </ul> 
+          </ul>  -->
           <div class="w-full py-3 mb-3 px-3 bg-gray-300 text-gray-800 rounded">
             <h2>Tag</h2>
           </div>
@@ -122,7 +122,6 @@ import ArticleCard from "~/components/ArticleCard";
 import RelatedItems from "~/components/RelatedItems";
 import ImageSrcSet from "~/components/ImageSrcSet";
 import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
-import {get,filter} from 'lodash'
 
 export default {
 
@@ -230,40 +229,10 @@ export default {
     };
   },
   mounted() {
-this.addView(this.meta.uid)
   },
 
   computed: {
-    ...mapState({
-      likes: 'likes',
-      guidedoc: 'guidedoc'
-    }),
-    pageLikes() {
-      let x = filter(this.likes, { id: this.meta.uid })
-      return x.length;
-    },
-      isLiked() {
-     
-  let x = filter(this.likes, { id: this.meta.uid })
-let y = filter(x, this.user.uid ).length
-if (y = 0) {
-  return false
-} else if (y > 0) {
-return true
-} else {
-  return false
-}
-       
   
-    },
-    views() {
-      let x =  filter(this.guidedoc, { id: this.meta.uid })
-      let y = x[0]
-    
-    return  get(y, 'views')
-   
-  
-    },
 
 
 
@@ -273,52 +242,8 @@ return true
     }
   },
   methods:  {
-        ...mapActions({
-    }),
-       async addView(uid) {
-      const increment = this.$fireStoreObj.FieldValue.increment(1);
-      const docRef = this.$fireStore.collection("guidedoc").doc(uid);
-      try {
-        await docRef.update({ views: increment });
-      } catch (e) {
-        alert(e);
-        return;
-      }
-    },
-          async toggleLike() {
-      const increment = this.$fireStoreObj.FieldValue.increment(1);
-         const decrement = this.$fireStoreObj.FieldValue.increment(-1);
-      const docRef = this.$fireStore.collection("guidedoc").doc(this.meta.uid);
-       const likeRef = this.$fireStore.collection("likes").doc(this.meta.uid);
-            if (!this.isLiked) {
- try {
-        let data = {
-        }
-        data[this.user.uid] = "like"
-        await docRef.update({ likes: increment });
-         await this.$fireStore.collection("likes").doc(this.meta.uid).set(data, { merge: true });
-                  console.log(data)
+       
 
-      } catch (e) {
-        alert(e + ' like');
-        return;
-      }
-            } else if (this.isLiked) {
- try {
-let unlike = {
-}
-   unlike[this.user.uid] = this.$fireStoreObj.FieldValue.delete()
-        await docRef.update({ likes: decrement });
-         await likeRef.update(unlike);
-         console.log(unlike)
-      } catch (e) {
-        alert(e + ' unlike');
-        return;
-      }
-            }
-
-     
-    },
     
 }
 };

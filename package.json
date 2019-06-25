@@ -29,8 +29,7 @@
     "vue-burger-menu": "^2.0.1",
     "vue-lazyload": "^1.2.6",
     "vue-timeago": "^5.1.2",
-    "vue-unorphan": "^1.2.3",
-    "vuexfire": "^3.0.0"
+    "vue-unorphan": "^1.2.3"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^1.1.0",
