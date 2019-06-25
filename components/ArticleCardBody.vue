@@ -21,14 +21,7 @@
           <font-awesome-icon class="text-xs" :icon="['fas', 'clock']"/>
           <timeago class="text-xs" :datetime="article.date"></timeago>
         </li>
-        <li class="mt-3 mr-3" v-if="views">
-          <font-awesome-icon :icon="['fas', 'eye']"/>
-          {{views}}
-        </li>
-        <li class="mt-3 mr-2">
-          <font-awesome-icon :icon="['fas', 'heart']"/>
-          {{pageLikes}}
-        </li>
+       
       </ul>
     </div>
     <div class="w-100 bg-brown-300 overflow-x-auto disable-scrollbars pl-4 pt-3 pb-2">
@@ -53,30 +46,11 @@
 import { mapGetters, mapActions, mapState } from "vuex";
 
 import ImageSrcSet from "~/components/ImageSrcSet";
-import { get, filter } from "lodash";
 export default {
   props: ["article"],
   components: { ImageSrcSet },
   computed: {
-    ...mapState({
-      likes(state) {
-        return state.likes;
-      },
-      guidedoc(state) {
-        return state.guidedoc;
-      }
-    }),
-    pageLikes() {
-      return  filter(this.likes, { pageId: this.article.meta.uid }).length;
-    },
-    views() {
-      let x =  filter(this.guidedoc, { id: this.article.meta.uid })
-      let y = x[0]
-    
-    return  get(y, 'views')
-   
-  
-    }
+ 
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <ArticleGrid :page="page" :pagename="this.$route.params.type" :pagedesc="pagedesc" :griditems="documents"/>
+  <ArticleGrid v-if="documents" :page="page" :pagename="pagename"  :pagedesc="pagedesc" :griditems="documents"/>
   </div>
 </template>
 
@@ -28,18 +28,15 @@ export default {
     };
   },
   components: { ArticleGrid },
-  async asyncData({ app, error, params }) {
-    let document = await app.$prismic.api.query(
-      app.$prismic.predicates.at("document.type", params.type),
-      { orderings: "[document.last_publication_date desc]" }
+    async asyncData({ app, error }) {
+    let document = await app.$prismic.api.query(app.$prismic.predicates.at("document.type", params.type),{ orderings : '[document.last_publication_date desc]', pageSize : 10, page: 1  }, 
+
+
     );
+
     return {
-      page: {
-        results: document.results_size,
-        perPage: document.results_per_page,
-        totalPages: document.total_pages,
-        totalResults: document.total_results_size
-      },
+
+   
       documents: document.results.map(result => {
         return {
           meta: {
@@ -49,16 +46,27 @@ export default {
             publicationDate: app.$prismic.asDate(result.first_publication_date),
             tags: result.tags,
             type: result.type,
-            slug: result.slugs[0]
           },
+
+
           title: app.$prismic.asText(result.data.title),
           short_desc: result.data.short_description,
           image: result.data.post_image,
-          result: result,
           date: result.last_publication_date
         };
-      })
-    };
-  }
+      }),
+    //   page: {
+    //     prevPage: document.prev_page,
+    //     page: document.page,
+    //     nextPage: document.next_page,
+    //   results: document.results_size,
+    //   perPage: document.results_per_page,
+    //   totalPages: document.total_pages,
+    //   totalResults: document.total_results_size
+    //   },
+    //   doc: document
+    // };
+  },
+
 };
 </script>

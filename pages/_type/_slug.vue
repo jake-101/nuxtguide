@@ -4,7 +4,7 @@
       <ImageSrcSet
         v-if="!embed.html"
         class="w-full h-auto rounded shadow-lg"
-        sizes="(min-width: 1024px) 500px, 650px"
+        sizes="(min-width: 1024px) 80vw, 100vw"
         :imgobj="image"
       />
       <div v-if="embed.html" class="video-container rounded shadow-lg bg-white" v-html="embed.html"></div>

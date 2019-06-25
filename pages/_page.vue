@@ -1,7 +1,6 @@
 <template>
 <div class="w-full">
   <ArticleGrid v-if="documents" :page="page" :pagename="pagename"  :pagedesc="pagedesc" :griditems="documents"/>
-
 <Pagination :page="page"/>
 </div>
 </template>
@@ -38,8 +37,8 @@ export default {
 
 },
   components: {ArticleGrid,Pagination},
-  async asyncData({ app, error }) {
-    let document = await app.$prismic.api.query('',{ orderings : '[document.last_publication_date desc]', pageSize : 10, page: 1  }, 
+  async asyncData({ app, error, params }) {
+    let document = await app.$prismic.api.query('',{ orderings : '[document.last_publication_date desc]', pageSize : 10, page: params.page  }, 
 
 
     );
