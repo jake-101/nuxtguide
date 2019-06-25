@@ -55,18 +55,18 @@ export default {
           date: result.last_publication_date
         };
       }),
-    //   page: {
-    //     prevPage: document.prev_page,
-    //     page: document.page,
-    //     nextPage: document.next_page,
-    //   results: document.results_size,
-    //   perPage: document.results_per_page,
-    //   totalPages: document.total_pages,
-    //   totalResults: document.total_results_size
-    //   },
-    //   doc: document
-    // };
+      page: {
+        prevPage: document.prev_page,
+        page: document.page,
+        nextPage: document.next_page,
+      results: document.results_size,
+      perPage: document.results_per_page,
+      totalPages: document.total_pages,
+      totalResults: document.total_results_size
+      },
+      doc: document
+    };
   }
 
-}}};
+};
 </script>
