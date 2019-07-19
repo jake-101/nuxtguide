@@ -23,7 +23,7 @@ const routes = () =>
 			];
     });
 module.exports = {
-  mode: "universal",
+  mode: "spa",
 
   /*
    ** Headers of the page
@@ -164,7 +164,7 @@ module.exports = {
   },
   generate: {
     fallback: true,
-    routes,
+    // routes,
   },
   /*
    ** Build configuration
