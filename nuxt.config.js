@@ -1,27 +1,27 @@
 const pkg = require("./package");
-const Prismic = require('prismic-javascript');
+// const Prismic = require('prismic-javascript');
 
-const prismicEndpoint = 'https://jake101.cdn.prismic.io/api/v2';
+// const prismicEndpoint = 'https://jake101.cdn.prismic.io/api/v2';
 
-// TODO: Factor in Page Size > 100
-const routes = () =>
-	Prismic.getApi(prismicEndpoint)
-		.then(api =>
-			api.query('', {
-        pageSize: 100
-      			}),
-		)
-		.then(res => {
-			if (res.total_pages > 1) {
-				console.warn('we have more than 100 pages, fix it');
-				process.exit(1);
-			}
-			return [
-				'/',
-				...res.results.map(page => `${page.type}/${page.uid.replace(/_/g, '/')}/`),
-				'404',
-			];
-    });
+// // TODO: Factor in Page Size > 100
+// const routes = () =>
+// 	Prismic.getApi(prismicEndpoint)
+// 		.then(api =>
+// 			api.query('', {
+//         pageSize: 100
+//       			}),
+// 		)
+// 		.then(res => {
+// 			if (res.total_pages > 1) {
+// 				console.warn('we have more than 100 pages, fix it');
+// 				process.exit(1);
+// 			}
+// 			return [
+// 				'/',
+// 				...res.results.map(page => `${page.type}/${page.uid.replace(/_/g, '/')}/`),
+// 				'404',
+// 			];
+//     });
 module.exports = {
   mode: "spa",
 
