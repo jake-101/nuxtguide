@@ -46,6 +46,8 @@ export default {
 };
 </script>
 <style>
+/* purgecss start ignore */
+
 [class*='ratio-'] {
   display: block;
   position: relative;
@@ -85,4 +87,6 @@ img.lazyimg[data-loaded="true"] {
   transform: translateZ(0);
 
 }
+/* purgecss end ignore */
+
 </style>

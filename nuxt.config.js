@@ -56,9 +56,11 @@ module.exports = {
    ** Plugins to load before mounting the App
    */
   lozad: {
-    
-      threshold: 0.7 // ratio of element convergence
-  
+    observer: {
+      threshold: 1.0, // ratio of element convergence,
+
+    },
+  polyfill: true
   },
   css: [
     // Load a Node.js module directly (here it's a Sass file)
