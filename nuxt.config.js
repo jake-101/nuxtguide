@@ -71,7 +71,7 @@ module.exports = {
     "~/plugins/timeago",
     { src: "~/plugins/menu", mode: "client" },
     { src: "~/plugins/lazy", mode: "client" },
-    { src: "~/plugins/suggest", mode: "client" }
+    // { src: "~/plugins/suggest", mode: "client" }
   ],
 
   /*
