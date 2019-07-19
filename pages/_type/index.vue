@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-  <ArticleGrid v-if="documents" :page="page" :pagename="pagename"  :pagedesc="pagedesc" :griditems="documents"/>
+  <ArticleGrid v-if="documents" :page="page" :pagename="this.$route.params.type"  :pagedesc="pagedesc" :griditems="documents"/>
   </div>
 </template>
 
@@ -28,8 +28,17 @@ export default {
     };
   },
   components: { ArticleGrid },
-    async asyncData({ app, error,params }) {
-    let document = await app.$prismic.api.query(app.$prismic.predicates.at("document.type", params.type),{ fetchLinks: ['category.title','category.accent_color'],orderings : '[document.last_publication_date desc]', pageSize : 10, page: 1  }
+    async asyncData({ app, error,params,state,store }) {
+        let  cats =  await app.$prismic.api.query(app.$prismic.predicates.at('document.type', 'categories')
+
+  );
+     
+      let id = await cats.results.find(function(elm) {
+        return elm.uid === params.type
+      })
+      console.log(id)
+      let x = id.id
+    let document = await app.$prismic.api.query([app.$prismic.predicates.at("document.type", "posts"),app.$prismic.predicates.at('my.posts.category', x)],{ fetchLinks: ['category.title','category.accent_color'],orderings : '[document.last_publication_date desc]', pageSize : 10, page: 1  }
 
 
     );
@@ -46,7 +55,7 @@ export default {
             lang: result.lang,
             publicationDate: app.$prismic.asDate(result.first_publication_date),
             tags: result.tags,
-            type: result.category.uid,
+            type: result.data.category.uid,
           },
 
 

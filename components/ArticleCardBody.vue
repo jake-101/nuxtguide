@@ -1,5 +1,5 @@
 <template>
-  <div
+  <div v-if="this.$store.state.cats"
     class="articlecard rounded overflow-hidden shadow-lg hover:shadow-2xl bg-white flex w-full flex-col stretch-items"
   >
     <nuxt-link :to="`/${article.meta.type}/${article.meta.uid}`">
@@ -27,6 +27,8 @@
     <div class="w-100 bg-brown-300 overflow-x-auto disable-scrollbars pl-4 pt-3 pb-2">
       <div class="w-max-content related-container">
         <nuxt-link
+                    :style="getBg(this.article.meta.type)"
+
           tag="span"
           :to="`/${article.meta.type}/`"
           class="cursor-pointer related-item inline-block bg-brown-800 hover:bg-brown-900 rounded px-3 py-1 text-xs font-semibold text-brown-100 shadow mr-1 mb-2"
@@ -49,6 +51,15 @@ import ImageSrcSet from "~/components/ImageSrcSet";
 export default {
   props: ["article"],
   components: { ImageSrcSet },
+  methods: {
+       getBg(type) {
+let item = this.$store.state.cats.find(function(elm) {
+  return elm.uid === type
+})
+return `background:${item.data.accent_color}`
+console.log(item)
+       }
+  },
   computed: {
  
   }

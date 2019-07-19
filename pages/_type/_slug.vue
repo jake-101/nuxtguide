@@ -1,5 +1,5 @@
 <template class="flex justify-center items-center">
-  <section class="flex flex-wrap justify-left flex-row lg:flex-row md:ml-3 w-full lg:max-w-6xl">
+  <section v-if="this.$store.state.cats" class="flex flex-wrap justify-left flex-row lg:flex-row md:ml-3 w-full lg:max-w-6xl">
     <ArticleCard index="0" key="top" class="w-full pb-3 flex flex-col mb-8">
       <ImageSrcSet
         v-if="!embed.html"
@@ -17,10 +17,11 @@
           <h2 class="font-bold text-3xl md:text-4xl mb-3 inline-block mt-4" v-unorphan>{{title}}</h2>
           <p class="text-brown-700 text-lg mb-2 leading-relaxed">
             <nuxt-link
+            :style="getBg(this.meta.type)"
               tag="span"
               :to="`/${meta.type}/`"
               class="cursor-pointer inline bg-brown-800 hover:bg-brown-900 rounded px-3 py-1 text-xs font-semibold text-brown-100 shadow-inner mr-1 mb-2"
-            >{{result.type | capitalize}}</nuxt-link>
+            >{{meta.type | capitalize}}</nuxt-link>
             <span v-unorphan>{{short_desc}}</span>
           </p>
         </div>
@@ -108,11 +109,11 @@
         </span>        </div>
 
       </ArticleCard>
-      <RelatedItems
+      <!-- <RelatedItems
         v-if="related.length"
         class="md:pl-2 md:pr-2 lg:pr-0 xl:w-2/3 md:w-2/3 lg:w-3/4 order-last md:order-none"
         :items="related"
-      />
+      /> -->
     </ArticleCard>
   </section>
 </template>
@@ -180,10 +181,10 @@ export default {
   },
   components: { ArticleCard, RelatedItems, ImageSrcSet },
   async asyncData({ app, error, params, store }) {
-    let document = await app.$prismic.api.getByUID(params.type, params.slug);
-    let related = await app.$prismic.api.query(
-      app.$prismic.predicates.similar(document.id, 8)
-    );
+    let document = await app.$prismic.api.getByUID('posts', params.slug);
+    // let related = await app.$prismic.api.query(
+    //   app.$prismic.predicates.similar(document.id, 8)
+    // );
   store.commit("setPageId", params.slug);
 
 
@@ -207,7 +208,7 @@ export default {
         lang: document.lang,
         publicationDate: app.$prismic.asDate(document.first_publication_date),
         tags: document.tags,
-        type: document.type,
+        type: document.data.category.uid,
         slug: document.slugs[0]
       },
       // likes: count,
@@ -224,7 +225,7 @@ export default {
       image: document.data.post_image,
       result: document,
       date: document.last_publication_date,
-      related: related.results
+      // related: related.results
     };
   },
   mounted() {
@@ -241,7 +242,13 @@ export default {
     }
   },
   methods:  {
-       
+       getBg(type) {
+let item = this.$store.state.cats.find(function(elm) {
+  return elm.uid === type
+})
+return `background:${item.data.accent_color}`
+console.log(item)
+       }
 
     
 }

@@ -3,6 +3,7 @@ export const state = () => ({
   user: null,
   authenticated: false,
   likes: [],
+  cats: null,
   guidedoc: [],
   pageId: ''
 });
@@ -13,6 +14,9 @@ export const mutations = {
   },
   setPageId(state,data) {
 state.pageId = data
+  },
+  setCats(state,data) {
+state.cats = data
   },
   authenticated(state) {
     state.authenticated = true;
@@ -31,11 +35,17 @@ export const getters = {
 };
 
 export const actions = {
-  nuxtServerInit({ dispatch,app }) {
-   
+   nuxtServerInit({ dispatch }) {
+dispatch('getCats')
   },
 
+async getCats({app,commit}) {
+  let  document =  await this.$prismic.api.query(this.$prismic.predicates.at('document.type', 'categories')
 
+  );
+ await console.log(document)
+ await commit('setCats',document.results)
+},
 
   fireAuth({ commit, app }) {
     const user = app.$fireAuth.currentUser;

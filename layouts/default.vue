@@ -3,10 +3,8 @@
     <no-ssr>
       <Reveal class="sidemenu">
         <nuxt-link class="text-brown-700 hover:text-brown-800" to="/" exact>Home</nuxt-link>
-        <nuxt-link class="text-brown-700 hover:text-brown-800" to="/modules">Modules</nuxt-link>
-                <nuxt-link class="text-brown-700 hover:text-brown-800" to="/showcase">Showcase</nuxt-link>
-
-        <nuxt-link class="text-brown-700 hover:text-brown-800" to="/templates">Templates</nuxt-link>
+        <nuxt-link v-for="c in cats" :key="c.id" class="text-brown-700 hover:text-brown-800" :to="`/${c.uid}`">{{c.data.title}}</nuxt-link>
+         
       </Reveal>
     </no-ssr>
 
@@ -75,6 +73,9 @@
 <script>
 
 export default {
+  asyncData({isDev, route, store, env, params, query, req, res, redirect, error}) {
+  store.dispatch('getCats')
+  },
   data: function() {
     return {
       timeout: null,
@@ -88,12 +89,17 @@ export default {
     };
   },
   computed: {
+    cats() {
+      return this.$store.state.cats;
+
+    },
     user() {
       return this.$store.state.user;
     }
   },
 
-  mounted() {
+  created() {
+    this.$store.dispatch('getCats')
     // this.getUser();
   },
 

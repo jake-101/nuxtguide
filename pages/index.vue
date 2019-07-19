@@ -36,13 +36,13 @@ export default {
 },
   components: {ArticleGrid,Pagination},
   async asyncData({ app, error }) {
-    let document = await app.$prismic.api.query(app.$prismic.predicates.at("document.type", 'posts'),{ orderings : '[document.last_publication_date desc]', pageSize : 10 } 
+    let document = await app.$prismic.api.query(app.$prismic.predicates.at("document.type", 'posts'),{ fetchLinks: ['category','category.title','category.accent_color'],orderings : '[document.last_publication_date desc]', pageSize : 10 } 
 
 
     );
     return {
 
-   
+   all: document.results,
       documents: document.results.map(result => {
         return {
           meta: {
@@ -51,7 +51,7 @@ export default {
             lang: result.lang,
             publicationDate: app.$prismic.asDate(result.first_publication_date),
             tags: result.tags,
-            type: result.type,
+            type: result.data.category.uid,
           },
 
 
