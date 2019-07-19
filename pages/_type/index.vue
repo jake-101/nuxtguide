@@ -29,7 +29,7 @@ export default {
   },
   components: { ArticleGrid },
     async asyncData({ app, error,params }) {
-    let document = await app.$prismic.api.query(app.$prismic.predicates.at("document.type", params.type),{ orderings : '[document.last_publication_date desc]', pageSize : 10, page: 1  }
+    let document = await app.$prismic.api.query(app.$prismic.predicates.at("document.type", params.type),{ fetchLinks: ['category.title','category.accent_color'],orderings : '[document.last_publication_date desc]', pageSize : 10, page: 1  }
 
 
     );
@@ -39,13 +39,14 @@ export default {
    
       documents: document.results.map(result => {
         return {
+     data: result,
           meta: {
             id: result.id,
             uid: result.uid,
             lang: result.lang,
             publicationDate: app.$prismic.asDate(result.first_publication_date),
             tags: result.tags,
-            type: result.type,
+            type: result.category.uid,
           },
 
 

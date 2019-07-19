@@ -25,7 +25,7 @@
           </p>
         </div>
         <div
-          class="px-6 pt-8 pb-8 border-b border-brown-400 flex-grow leading-loose description text-brown-800"
+          class="px-6 pt-8 pb-8 border-b border-brown-400 flex-grow leading-loose description text-brown-800 wysiwyg"
           v-html="description"
         ></div>
         <div class="w-100 overflow-x-auto bg-brown-300">
@@ -122,7 +122,6 @@ import ArticleCard from "~/components/ArticleCard";
 import RelatedItems from "~/components/RelatedItems";
 import ImageSrcSet from "~/components/ImageSrcSet";
 import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
-
 export default {
 
   head() {

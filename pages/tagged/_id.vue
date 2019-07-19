@@ -25,7 +25,7 @@ export default {
   },
   components: {ArticleGrid},
   async asyncData({ app, error,params }) {
-    let document = await app.$prismic.api.query(app.$prismic.predicates.at("document.tags", [params.id]),{ orderings : '[document.last_publication_date desc]' }
+    let document = await app.$prismic.api.query([app.$prismic.predicates.at('document.type', 'posts'),app.$prismic.predicates.at("document.tags", [params.id])],{ fetchLinks: ['category.title','category.accent_color'],orderings : '[document.last_publication_date desc]' }
 
     );
     let guidedoc = {}
@@ -45,7 +45,7 @@ export default {
             lang: result.lang,
             publicationDate: app.$prismic.asDate(result.first_publication_date),
             tags: result.tags,
-            type: result.type,
+            type: result.category.uid,
             slug: result.slugs[0]
           },
           title: app.$prismic.asText(result.data.title),

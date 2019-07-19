@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
 import Pagination from "~/components/Pagination"
 import ArticleGrid from '~/components/ArticleGrid'
 export default {
@@ -27,9 +26,7 @@ export default {
   },
   data: function () {
     return {
-      documents: {},
-      page: {},
-      doc: {},
+
      pagename: "Nuxt Guide",
      pagedesc: `A hand-selected collection of modules, plugins, boilerplates, tutorials, inspiration and more for Nuxt.js`
     }
@@ -39,11 +36,10 @@ export default {
 },
   components: {ArticleGrid,Pagination},
   async asyncData({ app, error }) {
-    let document = await app.$prismic.api.query('',{ orderings : '[document.last_publication_date desc]', pageSize : 10, page: 1  }, 
+    let document = await app.$prismic.api.query(app.$prismic.predicates.at("document.type", 'posts'),{ orderings : '[document.last_publication_date desc]', pageSize : 10 } 
 
 
     );
-
     return {
 
    
@@ -73,8 +69,7 @@ export default {
       perPage: document.results_per_page,
       totalPages: document.total_pages,
       totalResults: document.total_results_size
-      },
-      doc: document
+      }
     };
   }
 };

@@ -12,7 +12,6 @@
 
     <main id="page-wrap" class="antialiased bg-gray-100 font-sans">
       <ul class="flex bg-gray-900 p-4 justify-center">
-        <li class="flex-1"></li>
         <li class="mx-6 flex items-center flex-1 items-center justify-center">
           <nuxt-link
             class="flex items-center justify-around text-gray-700 text-center text-sm font-light uppercase tracking-widest"
@@ -40,7 +39,7 @@
             </div>
           </div>
         </li> -->
-        <li class="flex-1 flex justify-end">
+        <!-- <li class="flex-1 flex justify-end">
           <nuxt-link
             v-if="!user"
             class="cursor-pointer inline border-gray-700 border text-gray-600 text-xs px-3 py-1 rounded hover:bg-gray-800 hover:text-gray-300"
@@ -54,7 +53,7 @@
           >
             <img class="w-8 h-8 rounded-full" :src="user.photoUrl">
           </nuxt-link>
-        </li>
+        </li> -->
       </ul>
       <div class="p-4 md:p-8 lg:p-12 flex justify-center">
         <nuxt/>
@@ -95,7 +94,7 @@ export default {
   },
 
   mounted() {
-    this.getUser();
+    // this.getUser();
   },
 
   methods: {
