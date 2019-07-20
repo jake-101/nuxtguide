@@ -8,8 +8,8 @@
       </Reveal>
     </no-ssr>
 
-    <main id="page-wrap" class="antialiased bg-gray-100 font-sans">
-      <ul class="flex bg-gray-900 p-4 justify-center">
+    <main id="page-wrap" class="antialiased bg-gray-100 font-sans pt-20">
+      <ul class="flex bg-gray-900 p-4 justify-center fixed top-0 w-full z-50 shadow-md">
         <li class="mx-6 flex items-center flex-1 items-center justify-center">
           <nuxt-link
             class="flex items-center justify-around text-gray-700 text-center text-sm font-light uppercase tracking-widest"
@@ -65,7 +65,7 @@
         <li class="mx-2">© 2019 Nuxt Guide.</li>
         <li class="mx-2">Submit</li>
         <li class="mx-2">About</li>
-        <li class="mx-2">Colophon</li>
+        <li class="mx-2"><n-link class="text-gray-800 hover:underline" to="/pages/colophon">Colophon</n-link></li>
         <li class="mx-2"><a class="text-gray-800 hover:underline" href="https://twitter.com/nuxtguide">Twitter</a></li>
       </ul>
     </footer>
