@@ -70,7 +70,7 @@ transition: {
       mylikes: []
     };
   },
-  components: { ArticleCard, RelatedItems, ImageSrcSet },
+  components: { ArticleCard },
   async asyncData({ app, error, params, store }) {
     let document = await app.$prismic.api.getByUID('page', params.slug);
     // let related = await app.$prismic.api.query(
