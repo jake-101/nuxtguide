@@ -8,6 +8,7 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
+    "now-dev": "nuxt",
     "generate": "nuxt generate",
     "webpack-defaults": "webpack-defaults"
   },

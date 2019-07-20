@@ -1,14 +1,14 @@
 <template class="flex justify-center items-center">
   <section v-if="this.$store.state.cats" class="flex flex-wrap justify-left flex-row lg:flex-row md:ml-3 w-full lg:max-w-6xl">
-    <ArticleCard index="0" key="top" class=" w-full pb-3 flex flex-col mb-8">
+    <ArticleCard index="0" key="top" class=" w-full  flex flex-col mb-8 rounded overflow-hidden rounded shadow-lg">
       <ImageSrcSet
 
         v-if="!embed.html"
-        class="in w-full h-auto rounded shadow-lg"
+        class="in w-full h-full object-center object-cover"
         sizes="(min-width: 1024px) 80vw, 100vw"
         :imgobj="image"
       />
-      <div v-if="embed.html" class="video-container rounded shadow-lg bg-white" v-html="embed.html"></div>
+      <div v-if="embed.html" class="video-container rounded bg-white" v-html="embed.html"></div>
     </ArticleCard>
     <ArticleCard  index="1" key="main" class="w-full pb-1 flex flex-row flex-wrap">
       <div

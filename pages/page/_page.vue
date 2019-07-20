@@ -55,7 +55,7 @@ export default {
             lang: result.lang,
             publicationDate: app.$prismic.asDate(result.first_publication_date),
             tags: result.tags,
-            type: result.category.uid,
+            type: result.data.category.uid,
           },
 
 

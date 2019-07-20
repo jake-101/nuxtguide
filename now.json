@@ -10,6 +10,6 @@
   "routes": [
     { "src": "/_nuxt/.+", "headers": { "Cache-Control": "max-age=31557600" } },
     { "src": "/(.*)", "dest": "/" },
-    { "status": 200, "src": "/api/(.*)", "dest": "http://jake101.westus2.cloudapp.azure.com:7000/_/$1","headers": { "Cache-Control": "s-max-age=3600,stale-while-revalidate" }  }
+    { "status": 200, "src": "/api/(.*)", "dest": "http://jake101.westus2.cloudapp.azure.com:7000/_/","headers": { "Cache-Control": "s-max-age=3600,stale-while-revalidate" }  }
   ]
 }
