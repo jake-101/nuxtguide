@@ -13,9 +13,7 @@
 <script>
 export default {
   props: ["imgobj", "sizes"],
-    mounted () {
-    this.$lozad.observe();
-  },
+
   computed: {
  aspectRatio() {
       // Calculate the aspect ratio of the image

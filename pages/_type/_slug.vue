@@ -1,36 +1,37 @@
 <template class="flex justify-center items-center">
   <section v-if="this.$store.state.cats" class="flex flex-wrap justify-left flex-row lg:flex-row md:ml-3 w-full lg:max-w-6xl">
-    <ArticleCard index="0" key="top" class="w-full pb-3 flex flex-col mb-8">
+    <ArticleCard index="0" key="top" class=" w-full pb-3 flex flex-col mb-8">
       <ImageSrcSet
+
         v-if="!embed.html"
-        class="w-full h-auto rounded shadow-lg"
+        class="in w-full h-auto rounded shadow-lg"
         sizes="(min-width: 1024px) 80vw, 100vw"
         :imgobj="image"
       />
       <div v-if="embed.html" class="video-container rounded shadow-lg bg-white" v-html="embed.html"></div>
     </ArticleCard>
-    <ArticleCard index="1" key="main" class="w-full pb-1 flex flex-row flex-wrap">
+    <ArticleCard  index="1" key="main" class="w-full pb-1 flex flex-row flex-wrap">
       <div
         class="rounded overflow-hidden shadow-lg bg-white flex flex-col border-t-8 w-full lg:w-3/4 xl:w-2/3 border-brown-800 mb-8"
       >
         <div class="px-6 pt-4 pb-4 border-b-2 border-brown-300">
-          <h2 class="font-bold text-3xl md:text-4xl mb-3 inline-block mt-4" v-unorphan>{{title}}</h2>
+          <h2 style="--animation-order: 2;" class="in font-bold text-3xl md:text-4xl mb-3 inline-block mt-4" v-unorphan>{{title}}</h2>
           <p class="text-brown-700 text-lg mb-2 leading-relaxed">
-            <nuxt-link
+            <nuxt-link style="--animation-order: 3;"
             :style="getBg(this.meta.type)"
               tag="span"
               :to="`/${meta.type}/`"
-              class="cursor-pointer inline bg-brown-800 hover:bg-brown-900 rounded px-3 py-1 text-xs font-semibold text-brown-100 shadow-inner mr-1 mb-2"
+              class="in cursor-pointer inline bg-brown-800 hover:bg-brown-900 rounded px-3 py-1 text-xs font-semibold text-brown-100 shadow-inner mr-1 mb-2"
             >{{meta.type | capitalize}}</nuxt-link>
-            <span v-unorphan>{{short_desc}}</span>
+            <span style="--animation-order: 4;" class="in" v-unorphan>{{short_desc}}</span>
           </p>
         </div>
-        <div
-          class="px-6 pt-8 pb-8 border-b border-brown-400 flex-grow leading-loose description text-brown-800 wysiwyg"
+        <div style="--animation-order: 5;"
+          class="in px-6 pt-8 pb-8 border-b border-brown-400 flex-grow leading-loose description text-brown-800 wysiwyg"
           v-html="description"
         ></div>
         <div class="w-100 overflow-x-auto bg-brown-300">
-          <div class="pl-4 pt-4 pb-4">
+          <div style="--animation-order: 6;" class="in pl-4 pt-4 pb-4">
             <span v-if="links">
               <a
                 v-for="l in links"
@@ -91,10 +92,10 @@
               {{pageLikes}}
             </li>
           </ul>  -->
-          <div class="w-full py-3 mb-3 px-3 bg-gray-300 text-gray-800 rounded">
+          <div style="--animation-order: 7;" class="w-full py-3 mb-3 px-3 bg-gray-300 text-gray-800 rounded">
             <h2>Tag</h2>
           </div>
-        <div class="mt-2 mb-4">
+        <div style="--animation-order: 8;" class="mt-2 mb-4">
           <n-link
             tag="span"
             :to="`/tagged/${tag}`"
@@ -124,7 +125,10 @@ import RelatedItems from "~/components/RelatedItems";
 import ImageSrcSet from "~/components/ImageSrcSet";
 import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
 export default {
-
+transition: {
+    name: 'slugfade',
+    mode: 'out-in'
+  },
   head() {
     return {
       title: this.title + " | Nuxt Guide",
@@ -159,7 +163,7 @@ export default {
         {
           hid: "twitter:site",
           name: "twitter:site",
-          content: "@jasperketone"
+          content: "@nuxtguide"
         },
         {
           hid: "twitter:description",
@@ -228,7 +232,8 @@ export default {
       // related: related.results
     };
   },
-  mounted() {
+    mounted () {
+    this.$lozad.observe();
   },
 
   computed: {

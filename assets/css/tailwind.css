@@ -125,6 +125,117 @@
   scroll-snap-align: start;
 
 }
+/* purgecss start ignore */
+
+.gridfade-enter {
+  opacity: 0;
+}
+
+.gridfade-enter-active {
+  animation-name: animateIn;
+  animation-duration: 150ms;
+  animation-delay: calc(var(--animation-order) * 100ms);
+  animation-fill-mode: both;
+  transform: translateZ(0);will-change: transform;
+
+  animation-timing-function: cubic-bezier(0.42,0,0.58,1);
+}
+
+.gridfade-leave {
+
+}
+
+.gridfade-leave-active {
+  animation-name: animateOut;
+  animation-duration: 150ms;
+  animation-delay: calc(var(--animation-order) * 100ms);
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.42,0,0.58,1);
+  position: absolute;
+  transform: translateZ(0);will-change: transform;
+}
+
+.slugfade-enter .in {
+  opacity: 0;
+}
+
+.slugfade-enter-active .in {
+  animation-name: slugIn;
+  animation-duration: 250ms;
+  animation-delay: calc(var(--animation-order) * 100ms);
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.42,0,0.58,1);
+  transform: translateZ(0);will-change: transform;
+
+}
+
+.slugfade-leave .in {
+
+}
+
+.slugfade-leave-active .in {
+  animation-name: slugOut;
+  animation-duration: 250ms;
+  animation-delay: calc(var(--animation-order) * 100ms);
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.42,0,0.58,1);
+  position: absolute;
+  transform: translateZ(0);will-change: transform;
+
+}
+
+
+@keyframes slugIn {
+  0% {
+    opacity: 0;
+    transform: scale(.9)  translateY(-8px);
+  }
+  
+  100% {
+    opacity: 1;
+    transform: scale(1)  translateY(0);
+
+  }
+}
+@keyframes slugOut {
+  0% {
+    opacity: 1;
+    transform: scale(1)  translateY(0);
+  }
+  
+  100% {
+    opacity: 1;
+        transform: scale(.9) translateY(-8px);
+
+  }
+}
+
+@keyframes animateIn {
+  0% {
+    opacity: 0;
+    transform:  translateY(-8px);
+  }
+  
+  100% {
+    opacity: 1;
+    transform:  translateY(0);
+
+  }
+}
+@keyframes animateOut {
+  0% {
+    opacity: 1;
+    transform:  translateY(0);
+  }
+  
+  100% {
+    opacity: 1;
+        transform:  translateY(-8px);
+
+  }
+}
+/* purgecss end ignore */
+
 /**
  * Here you would add any custom utilities you need that don't come out of the
  * box with Tailwind.

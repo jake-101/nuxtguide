@@ -53,7 +53,8 @@
           </nuxt-link>
         </li> -->
       </ul>
-      <div class="p-4 md:p-8 lg:p-12 flex justify-center">
+      <div :flipKey="key" class="p-4 md:p-8 lg:p-12 flex justify-center">
+
         <nuxt/>
       </div>
     </main>
@@ -65,7 +66,7 @@
         <li class="mx-2">Submit</li>
         <li class="mx-2">About</li>
         <li class="mx-2">Colophon</li>
-        <li class="mx-2">Twitter</li>
+        <li class="mx-2"><a class="text-gray-800 hover:underline" href="https://twitter.com/nuxtguide">Twitter</a></li>
       </ul>
     </footer>
   </div>
@@ -89,6 +90,9 @@ export default {
     };
   },
   computed: {
+        key() {
+      return this.$route.path;
+    },
     cats() {
       return this.$store.state.cats;
 

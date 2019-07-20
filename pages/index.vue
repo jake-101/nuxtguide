@@ -43,8 +43,17 @@ export default {
     return {
 
    all: document.results,
-      documents: document.results.map(result => {
+      obj: document.results.map(result => {
         return {
+
+
+            uid: result.uid
+          
+      }}),
+   documents: document.results.map(result => {
+        return {
+
+
           meta: {
             id: result.id,
             uid: result.uid,

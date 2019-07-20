@@ -23,7 +23,7 @@ const pkg = require("./package");
 // 			];
 //     });
 module.exports = {
-  mode: "spa",
+  mode: "universal",
 
   /*
    ** Headers of the page
@@ -64,7 +64,8 @@ module.exports = {
   },
   css: [
     // Load a Node.js module directly (here it's a Sass file)
-    'wysiwyg.css'
+    'wysiwyg.css',
+    '~assets/inter-subset.css'
   ],
   plugins: [
     "~/plugins/filters",

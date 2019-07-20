@@ -1,7 +1,7 @@
 <template>
 <div>
-  <section class="articlegrid md:ml-3">
-    <ArticleCard key="first" class="w-full md:pr-3 pb-3 flex">
+  <transition-group :duration="{  leave: 1300 }" appear name="gridfade" tag="section" class="articlegrid md:ml-3">
+    <ArticleCard style="--animation-order: 0;" index="99" key="first" class="w-full md:pr-3 pb-3 flex">
       <div class="rounded overflow-hidden shadow-lg bg-brown-900 flex  h-full items-center justify-between flex-col flex-1">
         <p></p>
         <div class="px-6 py-4 text-center">
@@ -12,10 +12,10 @@
 
       </div>
     </ArticleCard>
-    <ArticleCard v-for="m in griditems" :key="m.meta.id" class="w-full md:pr-3 pb-3 flex">
+    <ArticleCard :style="`--animation-order: ${i};`" v-for="(m,i) in griditems" :index="i" :key="m.meta.id" class="w-full md:pr-3 pb-3 flex">
      <ArticleCardBody :article="m"/>
     </ArticleCard>
-  </section>
+  </transition-group>
   <!-- <div class="border-white border my-2 p-6 mx-3 mt-8 rounded"><ul class="flex"><li>{{page.total}}</li></ul></div> -->
   </div>
 </template>
@@ -85,11 +85,17 @@ export default {
     //     return;
     //   }
     // }
+    mounted () {
+    this.$lozad.observe();
+  },
+    
   components: { ArticleCard,ArticleCardBody },
   props: ["pagename", "pagedesc", "griditems","page"]
 };
 </script>
-<style>
+<style lang="scss">
+
+
 .articlecard {
   transition: .5s box-shadow;
 
@@ -104,4 +110,5 @@ export default {
   grid-template-rows: repeat(auto-fill, minmax(320px, 1fr));
   grid-gap: 1rem;
 }
+
 </style>
