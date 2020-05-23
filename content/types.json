@@ -1,0 +1,27 @@
+[
+  {
+    "title": "CMS",
+    "slug": "cms",
+    "accent_color": "#867a8d"
+  },
+  {
+    "title": "Modules",
+    "slug": "modules",
+    "accent_color": "#416f3f"
+  },
+  {
+    "title": "Tutorials",
+    "slug": "tutorials",
+    "accent_color": "#295b77"
+  },
+  {
+    "title": "Showcase",
+    "slug": "showcase",
+    "accent_color": "#b3a83b"
+  },
+  {
+    "title": "Templates",
+    "slug": "templates",
+    "accent_color": "#79630a"
+  }
+]

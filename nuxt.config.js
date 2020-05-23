@@ -1,30 +1,7 @@
 const pkg = require("./package");
-// const Prismic = require('prismic-javascript');
 
-// const prismicEndpoint = 'https://jake101.cdn.prismic.io/api/v2';
-
-// // TODO: Factor in Page Size > 100
-// const routes = () =>
-// 	Prismic.getApi(prismicEndpoint)
-// 		.then(api =>
-// 			api.query('', {
-//         pageSize: 100
-//       			}),
-// 		)
-// 		.then(res => {
-// 			if (res.total_pages > 1) {
-// 				console.warn('we have more than 100 pages, fix it');
-// 				process.exit(1);
-// 			}
-// 			return [
-// 				'/',
-// 				...res.results.map(page => `${page.type}/${page.uid.replace(/_/g, '/')}/`),
-// 				'404',
-// 			];
-//     });
 module.exports = {
   mode: "universal",
-
   /*
    ** Headers of the page
    */
@@ -51,9 +28,7 @@ module.exports = {
   /*
    ** Global CSS
    */
-  serverMiddleware: [
-    "~/server-middleware/setcache"
-      ],
+  serverMiddleware: ["~/server-middleware/setcache"],
   /*
    ** Plugins to load before mounting the App
    */
@@ -63,32 +38,33 @@ module.exports = {
       rootMargin: "10px 0px", // syntax similar to that of CSS Margin
       threshold: 0.3 // ratio of element convergence
     }
-
   },
   css: [
     // Load a Node.js module directly (here it's a Sass file)
-    'wysiwyg.css',
-    '~assets/inter-subset.css'
+    "wysiwyg.css",
+    "~assets/inter-subset.css"
   ],
   plugins: [
     "~/plugins/filters",
     "~/plugins/timeago",
     { src: "~/plugins/menu", mode: "client" },
-    { src: "~/plugins/lazy", mode: "client" },
+    { src: "~/plugins/lazy", mode: "client" }
     // { src: "~/plugins/suggest", mode: "client" }
   ],
-  
-  
+
   /*
    ** Nuxt.js modules
    */
-  devModules: ["@nuxtjs/tailwindcss"],
+  devModules: ["@nuxtjs/tailwindcss", "@nuxt/content"],
   modules: [
-    ['@nuxtjs/google-analytics', {
-      id: 'UA-886474-39'
-    }],
+    [
+      "@nuxtjs/google-analytics",
+      {
+        id: "UA-886474-39"
+      }
+    ],
     "vue-unorphan/nuxt/module",
-    '@ax2/lozad-module',
+    "@ax2/lozad-module",
     // Doc: https://github.com/nuxt-community/axios-module#usage
     "@nuxtjs/axios",
     [
@@ -110,44 +86,7 @@ module.exports = {
         ]
       }
     ],
-    "nuxt-webfontloader",
-    [
-      "prismic-nuxt",
-      {
-        endpoint: "https://jake101.cdn.prismic.io/api/v2",
-        deferLoad: true,
-        linkResolver: function(doc, ctx) {
-          return "/";
-        }
-      }
-    ],
-    // [
-    //   "nuxt-fire",
-    //   {
-    //     useOnly: ["auth"],
-    //     customEnv: false,
-    //     config: {
-    //       development: {
-    //         apiKey: "AIzaSyDDsijKfPhn2xNjPapedWxgP4lkW_ltmdI",
-    //         authDomain: "nuxtguide.firebaseapp.com",
-    //         databaseURL: "https://nuxtguide.firebaseio.com",
-    //         projectId: "nuxtguide",
-    //         storageBucket: "nuxtguide.appspot.com",
-    //         messagingSenderId: "486719329273",
-    //         appId: "1:486719329273:web:18f14c6e6ddc3317"
-    //       },
-    //       production: {
-    //         apiKey: "AIzaSyDDsijKfPhn2xNjPapedWxgP4lkW_ltmdI",
-    //         authDomain: "nuxtguide.firebaseapp.com",
-    //         databaseURL: "https://nuxtguide.firebaseio.com",
-    //         projectId: "nuxtguide",
-    //         storageBucket: "nuxtguide.appspot.com",
-    //         messagingSenderId: "486719329273",
-    //         appId: "1:486719329273:web:18f14c6e6ddc3317"
-    //       }
-    //     }
-    //   }
-    // ]
+    "nuxt-webfontloader"
   ],
   purgeCSS: {
     whitelist: [
@@ -167,13 +106,12 @@ module.exports = {
   /*
    ** Axios module configuration
    */
-  router: {
-  },
+  router: {},
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
   generate: {
-    fallback: true,
+    fallback: true
     // routes,
   },
   /*
@@ -181,6 +119,7 @@ module.exports = {
    */
   build: {
     extractCSS: true,
+
     /*
      ** You can extend webpack config here
      */

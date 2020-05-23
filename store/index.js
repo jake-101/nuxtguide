@@ -1,27 +1,25 @@
-
 export const state = () => ({
   user: null,
   authenticated: false,
   likes: [],
   cats: null,
   guidedoc: [],
-  pageId: ''
+  pageId: ""
 });
 
 export const mutations = {
   setUser(state, data) {
     state.user = data;
   },
-  setPageId(state,data) {
-state.pageId = data
+  setPageId(state, data) {
+    state.pageId = data;
   },
-  setCats(state,data) {
-state.cats = data
+  setCats(state, data) {
+    state.cats = data;
   },
   authenticated(state) {
     state.authenticated = true;
-  },
-
+  }
 };
 
 export const getters = {
@@ -29,23 +27,18 @@ export const getters = {
   //   const copy = {...state.likes}
   //     var found = copy.find(o => o.pageId === state.pageId)
   //     return found;
-    
-  
   // }
 };
 
 export const actions = {
-   nuxtServerInit({ dispatch }) {
-dispatch('getCats')
+  nuxtServerInit({ dispatch }) {
+    dispatch("getCats");
   },
 
-async getCats({app,commit}) {
-  let  document =  await this.$prismic.api.query(this.$prismic.predicates.at('document.type', 'categories')
-
-  );
- await console.log(document)
- await commit('setCats',document.results)
-},
+  async getCats({ app, commit }) {
+    let cats = await this.$content("types").fetch();
+    await commit("setCats", cats);
+  },
 
   fireAuth({ commit, app }) {
     const user = app.$fireAuth.currentUser;

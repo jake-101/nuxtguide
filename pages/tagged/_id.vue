@@ -28,50 +28,19 @@ export default {
     };
   },
   components: { ArticleGrid },
-        mounted () {
+  mounted() {
     this.$lozad.observe();
   },
-          updated () {
+  updated() {
     this.$lozad.observe();
   },
-  async asyncData({ app, error, params }) {
-    let document = await app.$prismic.api.query(
-      [
-        app.$prismic.predicates.at("document.type", "posts"),
-        app.$prismic.predicates.at("document.tags", [params.id])
-      ],
-      {
-        fetchLinks: ["category", "category.title", "category.accent_color"],
-        orderings: "[document.last_publication_date desc]"
-      }
-    );
-    let guidedoc = {};
+  async asyncData({ $content, params }) {
+    const pages = await $content("articles")
+      .where({ tags: `${params.type}` })
+      .fetch();
 
     return {
-      page: {
-        results: document.results_size,
-        perPage: document.results_per_page,
-        totalPages: document.total_pages,
-        totalResults: document.total_results_size
-      },
-      modules: document.results.map(result => {
-        return {
-          meta: {
-            id: result.id,
-            uid: result.uid,
-            lang: result.lang,
-            publicationDate: app.$prismic.asDate(result.first_publication_date),
-            tags: result.tags,
-            type: result.data.category.uid,
-            slug: result.slugs[0]
-          },
-          title: app.$prismic.asText(result.data.title),
-          short_desc: result.data.short_description,
-          image: result.data.post_image,
-          result: result,
-          date: result.last_publication_date
-        };
-      })
+      pages
     };
   }
 };
