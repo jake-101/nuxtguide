@@ -41,7 +41,9 @@ export default {
   //   });
 
   // },
-
+      mounted () {
+    this.$lozad.observe();
+  },
   computed: {
 
   },
@@ -85,9 +87,7 @@ export default {
     //     return;
     //   }
     // }
-    mounted () {
-    this.$lozad.observe();
-  },
+
     
   components: { ArticleCard,ArticleCardBody },
   props: ["pagename", "pagedesc", "griditems","page"]

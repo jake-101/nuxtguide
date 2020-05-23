@@ -1,5 +1,5 @@
 <template class="overflow-hidden">
-<div class="aspect-ratio-wide">
+<div :style="`background:url(${imgobj.lq.url});background-size:cover;`" class="aspect-ratio-wide">
   <img draggable="false"
     class="w-full lazyimg lozad"
     :src="imgobj.lq.url"

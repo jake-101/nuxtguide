@@ -51,16 +51,19 @@ module.exports = {
   /*
    ** Global CSS
    */
-
+  serverMiddleware: [
+    "~/server-middleware/setcache"
+      ],
   /*
    ** Plugins to load before mounting the App
    */
   lozad: {
+    polyfill: true,
     observer: {
-      threshold: 1.0, // ratio of element convergence,
+      rootMargin: "10px 0px", // syntax similar to that of CSS Margin
+      threshold: 0.3 // ratio of element convergence
+    }
 
-    },
-  polyfill: true
   },
   css: [
     // Load a Node.js module directly (here it's a Sass file)
@@ -74,12 +77,16 @@ module.exports = {
     { src: "~/plugins/lazy", mode: "client" },
     // { src: "~/plugins/suggest", mode: "client" }
   ],
-
+  
+  
   /*
    ** Nuxt.js modules
    */
   devModules: ["@nuxtjs/tailwindcss"],
   modules: [
+    ['@nuxtjs/google-analytics', {
+      id: 'UA-886474-39'
+    }],
     "vue-unorphan/nuxt/module",
     '@ax2/lozad-module',
     // Doc: https://github.com/nuxt-community/axios-module#usage

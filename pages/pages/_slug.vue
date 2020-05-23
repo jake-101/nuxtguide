@@ -121,7 +121,9 @@ transition: {
     mounted () {
     this.$lozad.observe();
   },
-
+        updated () {
+    this.$lozad.observe();
+  },
   computed: {
   
 

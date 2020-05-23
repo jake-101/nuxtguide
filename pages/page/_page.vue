@@ -1,52 +1,66 @@
 <template>
-<div class="w-full">
-  <ArticleGrid v-if="documents" :page="page" :pagename="pagename"  :pagedesc="pagedesc" :griditems="documents"/>
-<Pagination :page="page"/>
-</div>
+  <div class="w-full">
+    <ArticleGrid
+      v-if="documents"
+      :page="page"
+      :pagename="pagename"
+      :pagedesc="pagedesc"
+      :griditems="documents"
+    />
+    <Pagination :page="page" />
+  </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import Pagination from "~/components/Pagination"
-import ArticleGrid from '~/components/ArticleGrid'
+import { mapGetters, mapActions } from "vuex";
+import Pagination from "~/components/Pagination";
+import ArticleGrid from "~/components/ArticleGrid";
 export default {
-//     fetch ({ store, params,app }) {
-//         const ref = app.$fireStore
-//       .collection('likes')
-// store.dispatch('likesRef',ref)
-//   },
-      head () {
+  //     fetch ({ store, params,app }) {
+  //         const ref = app.$fireStore
+  //       .collection('likes')
+  // store.dispatch('likesRef',ref)
+  //   },
+  head() {
     return {
-      title: 'Home | Nuxt Guide',
+      title: "Nuxt Guide",
       meta: [
         // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-        { hid: 'description', name: 'description', content: 'A collection of modules, plugins, boilerplates, tutorials, and inspiration for Nuxt.js / Vue.js' }
+        {
+          hid: "description",
+          name: "description",
+          content:
+            "A collection of modules, plugins, boilerplates, tutorials, and inspiration for Nuxt.js / Vue.js"
+        }
       ]
-    }
+    };
   },
-  data: function () {
+  data: function() {
     return {
       documents: {},
       page: {},
       doc: {},
-     pagename: "Nuxt Guide",
-     pagedesc: `A hand-selected collection of modules, plugins, boilerplates, tutorials, inspiration and more for Nuxt.js`
-    }
+      pagename: "Nuxt Guide",
+      pagedesc: `A hand-selected collection of modules, plugins, boilerplates, tutorials, inspiration and more for Nuxt.js`
+    };
   },
- methods: {
-
-},
-  components: {ArticleGrid,Pagination},
+      mounted () {
+    this.$lozad.observe();
+  },
+  methods: {},
+  components: { ArticleGrid, Pagination },
   async asyncData({ app, error, params }) {
-        let document = await app.$prismic.api.query(app.$prismic.predicates.at("document.type", 'posts'),{ fetchLinks: ['category.title','category.accent_color'],orderings : '[document.last_publication_date desc]', pageSize : 10, page: params.page  } 
-
-
-
+    let document = await app.$prismic.api.query(
+      app.$prismic.predicates.at("document.type", "posts"),
+      {
+        fetchLinks: ["category.title", "category.accent_color"],
+        orderings: "[document.last_publication_date desc]",
+        pageSize: 10,
+        page: params.page
+      }
     );
 
     return {
-
-   
       documents: document.results.map(result => {
         return {
           meta: {
@@ -55,9 +69,8 @@ export default {
             lang: result.lang,
             publicationDate: app.$prismic.asDate(result.first_publication_date),
             tags: result.tags,
-            type: result.data.category.uid,
+            type: result.data.category.uid
           },
-
 
           title: app.$prismic.asText(result.data.title),
           short_desc: result.data.short_description,
@@ -69,10 +82,10 @@ export default {
         prevPage: document.prev_page,
         page: document.page,
         nextPage: document.next_page,
-      results: document.results_size,
-      perPage: document.results_per_page,
-      totalPages: document.total_pages,
-      totalResults: document.total_results_size
+        results: document.results_size,
+        perPage: document.results_per_page,
+        totalPages: document.total_pages,
+        totalResults: document.total_results_size
       },
       doc: document
     };
